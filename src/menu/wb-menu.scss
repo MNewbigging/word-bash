@@ -1,0 +1,31 @@
+@import '../word-bash';
+
+.wb-menu {
+  width: 200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+
+  .button {
+    background-image: none;
+    background-color: #56766b;
+    color: white;
+    margin-bottom: 20px;
+    font-size: $fontSize;
+    font-weight: $fontWeight;
+    width: 100%;
+
+    &:hover {
+      background-color: #c59849;
+      transition: background-color 0.1s linear;
+    }
+  }
+}
+
+.drawer-content {
+  padding: 10px;
+
+  p {
+    margin-bottom: 20px;
+  }
+}

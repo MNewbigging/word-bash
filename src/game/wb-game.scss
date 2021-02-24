@@ -1,0 +1,54 @@
+.wb-game {
+  width: 95%;
+  height: 95%;
+  background-color: #e7eeec;
+
+  // Two main panels, split left-right
+  display: flex;
+  flex-direction: row;
+
+  &__left {
+    width: 50%;
+
+    // Two main panels, split top-bottom
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    // This is the game menu bar
+    .wbg-left-top {
+      height: 80px;
+    }
+
+    // letter pool and active answer zone container
+    .wbg-left-bot {
+      flex: 1 0 auto;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+
+      .wbg-lb-top {
+        margin-bottom: 20px;
+        // center grid inside this
+        display: flex;
+        justify-content: center;
+      }
+
+      .wbg-lb-bot {
+        height: 80px; // active answer zone height
+        margin-bottom: 20px;
+      }
+    }
+  }
+
+  &__right {
+    width: 50%;
+  }
+}
+
+@media (max-height: 768px) {
+  .app-root {
+    height: 80%;
+  }
+}
