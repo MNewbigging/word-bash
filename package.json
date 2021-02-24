@@ -1,6 +1,6 @@
 {
   "homepage": "https://mnewbigging.github.io/word-bash",
-  "name": "react-typescript-webpack",
+  "name": "Word Bash",
   "version": "1.0.0",
   "description": "A very simple starter project for using React,TypeScript and Webpack.",
   "proxy": "http://localhost:8080",
@@ -9,7 +9,7 @@
     "dev": "webpack-dev-server --mode development --open --host 0.0.0.0",
     "build": "webpack --mode production",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d dist"
   },
   "keywords": [
     "react",
