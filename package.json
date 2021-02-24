@@ -1,6 +1,6 @@
 {
   "homepage": "https://mnewbigging.github.io/word-bash",
-  "name": "Word Bash",
+  "name": "word-bash",
   "version": "1.0.0",
   "description": "A very simple starter project for using React,TypeScript and Webpack.",
   "proxy": "http://localhost:8080",

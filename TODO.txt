@@ -1,0 +1,5 @@
+- increase sizing of main menu
+- improve how to play drawer (style at least!)
+
+- improve responsive-ness (use more grid for overall layout)
+- improve scoring
