@@ -1,29 +1,13 @@
-# React, TypeScript, Webpack, Mobx, SASS Template
+## How to play Word Bash
 
-A simple template for your projects; includes react, typescript, webpack, mobx, sass and a custom module declaration for creating react components from SVGs.
+In Word Bash, you are given a pool of random letters which you use to make words.
 
+Choose your game size to determine how many letter tiles you want to play with.
 
-### 3...
-Install the thing:
+To win, you must use all the letter tiles in the pool.
 
-```
-npm install
-```
+You cannot use the same word twice; each word accepted must be unique.
 
-#### 2...
-Run the thing:
+Click on a word you have already accepted to remove it and return those letters to the pool. 
 
-```
-npm run dev
-```
-
-
-#### 1...
-Release the thing:
-
-```
-npm run build
-```
-
-
-
+You are awarded points based on the length of your accepted words - try to get as many long words as you can!
