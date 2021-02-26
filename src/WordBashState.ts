@@ -42,6 +42,14 @@ export class WordBashState {
     this.toWbScreen(WBScreen.MENU);
   }
 
+  @action public viewHowToPlay() {
+    this.toWbScreen(WBScreen.HOW_TO_PLAY);
+  }
+
+  @action public viewMenu() {
+    this.toWbScreen(WBScreen.MENU);
+  }
+
   // Called on every key press in game
   @action public pressKey(key: string) {
     switch (this.wbScreen) {
@@ -55,7 +63,7 @@ export class WordBashState {
     }
   }
 
-  @action public toWbScreen(wbState: WBScreen) {
+  @action private toWbScreen(wbState: WBScreen) {
     this.wbScreen = wbState;
   }
 }
