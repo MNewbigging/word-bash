@@ -7,12 +7,12 @@ import { WBGameState } from './WBGameState';
 export class WordBashState {
   @observable public wbScreen: WBScreen = WBScreen.MENU; // which app screen is shown
   public gameState?: WBGameState; // holds currently active game (if there is one started)
-  @observable public pausedGame: boolean = false;
+  @observable public pausedGame = false;
 
   // Letter generation values
   @observable public gameSize: number = PoolSize.MEDIUM;
 
-  private weight: ConsonantsWeight = {
+  private readonly weight: ConsonantsWeight = {
     common: 3,
     uncommon: 2,
     rare: 1,

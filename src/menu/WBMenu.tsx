@@ -3,7 +3,7 @@ import React from 'react';
 import { observable } from 'mobx';
 import { observer } from 'mobx-react';
 
-import { Button, Drawer, Radio, RadioGroup } from '@blueprintjs/core';
+import { Button, Drawer } from '@blueprintjs/core';
 
 import { PoolSize } from '../fixed';
 import { WordBashState } from '../WordBashState';
@@ -16,7 +16,7 @@ interface WBMenuProps {
 
 @observer
 export class WBMenu extends React.Component<WBMenuProps> {
-  @observable private drawerOpen: boolean = false;
+  @observable private drawerOpen = false;
 
   public render() {
     const { wbState } = this.props;
@@ -26,6 +26,7 @@ export class WBMenu extends React.Component<WBMenuProps> {
     wbState.pausedGame
       ? toRender.push(this.renderPauseMenu())
       : toRender.push(this.renderMainMenu());
+
     // Common menu buttons
     toRender.push(this.renderCommonButtons());
 
@@ -38,18 +39,51 @@ export class WBMenu extends React.Component<WBMenuProps> {
   private renderMainMenu() {
     const { wbState } = this.props;
     return (
-      <div key={'main'}>
-        <RadioGroup
-          label={'Game size:'}
-          onChange={(event: React.FormEvent<HTMLInputElement>) =>
-            wbState.setGameSize(parseInt(event.currentTarget.value, 10))
-          }
-          selectedValue={wbState.gameSize}
-        >
-          <Radio label={`Small: ${PoolSize.SMALL} tiles`} value={PoolSize.SMALL} />
-          <Radio label={`Medium: ${PoolSize.MEDIUM} tiles`} value={PoolSize.MEDIUM} />
-          <Radio label={`Large: ${PoolSize.LARGE} tiles`} value={PoolSize.LARGE} />
-        </RadioGroup>
+      <div key={'main'} className={'main'}>
+        <form>
+          <label id={'form-label'} htmlFor={'game-size'}>
+            Game size:
+          </label>
+          <div>
+            <label htmlFor={'small'}>
+              <input
+                type={'radio'}
+                id={'small'}
+                name={'size'}
+                checked={wbState.gameSize === PoolSize.SMALL}
+                onChange={() => wbState.setGameSize(PoolSize.SMALL)}
+              />
+              Small: {PoolSize.SMALL} letters
+            </label>
+          </div>
+
+          <div>
+            <label htmlFor={'med'}>
+              <input
+                type={'radio'}
+                id={'med'}
+                name={'size'}
+                checked={wbState.gameSize === PoolSize.MEDIUM}
+                onChange={() => wbState.setGameSize(PoolSize.MEDIUM)}
+              />
+              Medium: {PoolSize.MEDIUM} letters
+            </label>
+          </div>
+
+          <div>
+            <label htmlFor={'large'}>
+              <input
+                type={'radio'}
+                id={'large'}
+                name={'size'}
+                checked={wbState.gameSize === PoolSize.LARGE}
+                onChange={() => wbState.setGameSize(PoolSize.LARGE)}
+              />
+              Large: {PoolSize.LARGE} letters
+            </label>
+          </div>
+        </form>
+
         <Button
           key={'start'}
           className={'button'}
