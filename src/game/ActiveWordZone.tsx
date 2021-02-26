@@ -2,8 +2,6 @@ import React from 'react';
 
 import { observer } from 'mobx-react';
 
-import { Icon } from '@blueprintjs/core';
-
 import { WBGameState } from '../WBGameState';
 import { AnswerLetterTile } from './AnswerLetterTile';
 
@@ -37,7 +35,9 @@ export class ActiveWordZone extends React.Component<AWZProps> {
         <div className={'letters'}>{letters}</div>
 
         <div className={'enter-icon'} onClick={() => gameState.checkWord()}>
-          <Icon icon={'caret-right'} iconSize={24} />
+          <svg height='40' width='40'>
+            <polygon points='10,10 10,30 30,20' style={{ fill: 'white', stroke: 'white' }} />
+          </svg>
         </div>
       </div>
     );

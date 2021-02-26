@@ -278,14 +278,15 @@ export class WBGameState {
 
     let points = 0;
     // Add 1 point per letter
-    this.allAnswers.forEach((ans) => {
-      points += ans.length;
-    });
+    // this.allAnswers.forEach((ans) => {
+    //   points += ans.length;
+    // });
 
     // Add extra points for long answers
-    points += this.answers5To6.length;
-    points += this.answers7To8.length * 2;
-    points += this.answers9Plus.length * 3;
+    points += this.answers3To4.length;
+    points += this.answers5To6.length * 2;
+    points += this.answers7To8.length * 3;
+    points += this.answers9Plus.length * 5;
 
     // If at end game, subtract points for lifelines used
     const extrasUsed = 5 - this.lifelines.vowels + 5 - this.lifelines.consonants;

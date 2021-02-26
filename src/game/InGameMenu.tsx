@@ -1,8 +1,5 @@
-import React from 'react';
-
 import { observer } from 'mobx-react';
-
-import { Icon } from '@blueprintjs/core';
+import React from 'react';
 
 import { WBGameState } from '../WBGameState';
 
@@ -23,7 +20,7 @@ export class InGameMenu extends React.Component<IGMProps> {
     return (
       <div className={'in-game-menu'}>
         <div className={'button menu'} onClick={() => pauseGame()}>
-          <Icon icon={'menu'} />
+          Menu
         </div>
         <div className={'button-holder'}>
           <div className={'button'} onClick={() => gameState.getExtraVowel()}>
