@@ -3,7 +3,7 @@ import React from 'react';
 import { observable } from 'mobx';
 import { observer } from 'mobx-react';
 
-import { Button, Drawer } from '@blueprintjs/core';
+import { Drawer } from '@blueprintjs/core';
 
 import { PoolSize } from '../fixed';
 import { WordBashState } from '../WordBashState';
@@ -84,12 +84,9 @@ export class WBMenu extends React.Component<WBMenuProps> {
           </div>
         </form>
 
-        <Button
-          key={'start'}
-          className={'button'}
-          text={'START'}
-          onClick={() => wbState.startGame()}
-        />
+        <button key={'start'} className={'button'} onClick={() => wbState.startGame()}>
+          START
+        </button>
       </div>
     );
   }
@@ -97,19 +94,14 @@ export class WBMenu extends React.Component<WBMenuProps> {
   private renderPauseMenu() {
     const { wbState } = this.props;
     return (
-      <div key={'pause'}>
-        <Button
-          key={'resume'}
-          className={'button'}
-          text={'RESUME'}
-          onClick={() => wbState.resumeGame()}
-        />
-        <Button
-          key={'endgame'}
-          className={'button'}
-          text={'END GAME'}
-          onClick={() => wbState.endGame()}
-        />
+      <div key={'pause'} className={'pause'}>
+        <button key={'resume'} className={'button'} onClick={() => wbState.resumeGame()}>
+          RESUME
+        </button>
+
+        <button key={'endgame'} className={'button'} onClick={() => wbState.endGame()}>
+          END GAME
+        </button>
       </div>
     );
   }
@@ -117,12 +109,13 @@ export class WBMenu extends React.Component<WBMenuProps> {
   private renderCommonButtons() {
     return (
       <div key={'common'}>
-        <Button
+        <button
           key={'how-to'}
           className={'button'}
-          text={'HOW TO PLAY'}
           onClick={() => (this.drawerOpen = !this.drawerOpen)}
-        />
+        >
+          HOW TO PLAY
+        </button>
       </div>
     );
   }

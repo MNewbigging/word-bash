@@ -10,23 +10,30 @@
   align-items: center;
 
   .button {
+    outline: none;
     background-image: none;
     background-color: #56766b;
+    border-radius: 5px;
+    box-shadow: none;
+    border: none;
     color: white;
     margin-bottom: 20px;
     font-size: $fontSize;
     font-weight: $fontWeight;
     width: 200px;
+    height: 40px;
 
     &:hover {
       background-color: #c59849;
       transition: background-color 0.1s linear;
     }
   }
-
+  .pause,
   .main {
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
 
     form {
       margin-bottom: 20px;
