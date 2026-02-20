@@ -3,9 +3,12 @@ import "./start-screen.scss";
 
 interface StartScreenProps {
   onStart: () => void;
+  isReady: boolean;
 }
 
-export function StartScreen({ onStart }: StartScreenProps) {
+export function StartScreen({ onStart, isReady }: StartScreenProps) {
+  const buttonLabel = isReady ? "Start" : "Loading";
+
   return (
     <div className="start-screen">
       <div className="bg-letters">
@@ -32,9 +35,12 @@ export function StartScreen({ onStart }: StartScreenProps) {
         <p>If the play area fills - game over</p>
       </div>
 
-      <p className="start-button" onClick={onStart}>
-        Start
-      </p>
+      <div
+        className={`start-button ${isReady ? "" : "loading"}`}
+        onClick={onStart}
+      >
+        {buttonLabel}
+      </div>
     </div>
   );
 }
