@@ -1,0 +1,18 @@
+@import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&family=Roboto+Slab:wght@100..900&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap");
+
+body {
+  font-family: "Roboto Slab", serif;
+}
+
+$main-background-color: #f4f1ea;
+
+$grid-line-color: rgba(0, 0, 0, 0.6);
+$danger-line-color: #c94c4c;
+
+$vowel-color: #8fa8b3;
+$consonant-common: #c9c3b8;
+$letter-mid-value: #a3a380;
+$letter-high-value: #c67b5c;
+// letter borders should be darker versions of above
+// letter shadow to do
+$letter-radius: 6px;
