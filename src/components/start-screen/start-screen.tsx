@@ -1,7 +1,11 @@
 import { Logo } from "../logo/logo";
 import "./start-screen.scss";
 
-export function StartScreen() {
+interface StartScreenProps {
+  onStart: () => void;
+}
+
+export function StartScreen({ onStart }: StartScreenProps) {
   return (
     <div className="start-screen">
       <div className="bg-letters">
@@ -28,7 +32,9 @@ export function StartScreen() {
         <p>If the play area fills - game over</p>
       </div>
 
-      <p className="start-button">Start</p>
+      <p className="start-button" onClick={onStart}>
+        Start
+      </p>
     </div>
   );
 }
