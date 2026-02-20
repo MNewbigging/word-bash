@@ -49,7 +49,7 @@ export function App() {
           </motion.div>
         )}
 
-        {screen === "game" && (
+        {screen === "game" && dict && (
           <motion.div
             key="game"
             className="screen"
@@ -58,7 +58,7 @@ export function App() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.26, ease: "easeOut" }}
           >
-            <GameScreen />
+            <GameScreen dictionary={dict} />
           </motion.div>
         )}
       </AnimatePresence>
