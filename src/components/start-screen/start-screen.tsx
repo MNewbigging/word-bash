@@ -4,6 +4,17 @@ import "./start-screen.scss";
 export function StartScreen() {
   return (
     <div className="start-screen">
+      <div className="bg-letters">
+        <span>W</span>
+        <span>O</span>
+        <span>R</span>
+        <span>D</span>
+        <span>B</span>
+        <span>A</span>
+        <span>S</span>
+        <span>H</span>
+      </div>
+
       <Logo />
       <span className="logo-spacer"></span>
 
