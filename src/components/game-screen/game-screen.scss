@@ -1,3 +1,24 @@
+@import "../../common-styles.scss";
+
 .game-screen {
-  //
+  min-height: 100vh;
+  background-color: $main-background-color;
+
+  display: flex;
+  flex-direction: column;
+
+  .top-bar {
+    height: 60px;
+  }
+
+  .play-area {
+    flex: 1 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .word-bar {
+    height: 80px;
+  }
 }

@@ -1,0 +1,16 @@
+.bucket {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  max-width: 420px;
+  aspect-ratio: 10 / 16; // or match the grid
+  background-color: #e9e4d8;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+
+  box-shadow: 
+    // soft top inset - light coming from above
+    inset 0 4px 8px rgba(0, 0, 0, 0.1),
+    // hard side shadow for frame feel
+    inset 1px 0 4px rgba(0, 0, 0, 0.06),
+    inset -1px 0 4px rgba(0, 0, 0, 0.06);
+}
