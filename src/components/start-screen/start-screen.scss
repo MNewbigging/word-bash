@@ -6,12 +6,11 @@
   width: 100vw;
   height: 100vh;
   background-color: $main-background-color;
-  padding: 32px 20px;
+  padding-top: 12vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
-  gap: 50px;
 
   // Paper texture effect:
   &::before {
@@ -33,17 +32,21 @@
       1px 1px;
   }
 
+  .logo-spacer {
+    margin-bottom: var(--space-lg);
+  }
+
   .tagline {
+    margin-bottom: var(--space-md);
     font-size: 20px;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    margin: 24px 0 16px;
     color: rgba(0, 0, 0, 0.6);
   }
 
   .how-to-play {
     max-width: 420px;
-    margin-bottom: 32px;
+    margin-bottom: var(--space-lg);
     font-family: "Inter", sans-serif;
     font-size: 16px;
     line-height: 1.6;

@@ -5,6 +5,14 @@ body {
   font-family: "Roboto Slab", serif;
 }
 
+:root {
+  --space-xs: 8px;
+  --space-sm: 16px;
+  --space-md: 24px;
+  --space-lg: 36px;
+  --space-xl: 48px;
+}
+
 $main-background-color: #f4f1ea;
 
 $color-muted-clay: #b55a43;
