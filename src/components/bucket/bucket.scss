@@ -20,7 +20,9 @@
     inset -1px 0 4px rgba(0, 0, 0, 0.06);
 }
 
+// Grid lines
 .bucket::before {
+  z-index: 1;
   content: "";
   position: absolute;
   inset: 1px;
@@ -34,6 +36,7 @@
 }
 
 .bucket::after {
+  z-index: 1;
   content: "";
   position: absolute;
   top: 0;
@@ -52,6 +55,7 @@
 }
 
 .danger-overlay {
+  z-index: 2;
   position: absolute;
   inset: 0;
   pointer-events: none;
@@ -105,4 +109,15 @@
     height: var(--cell-y);
     background: rgba(201, 76, 76, 0.1);
   }
+}
+
+.tile-layer {
+  z-index: 3;
+  position: absolute;
+  inset: 0;
+
+  display: grid;
+  grid-template-columns: repeat(var(--cols), 1fr);
+  grid-template-rows: repeat(var(--rows), 1fr);
+  padding: 1px;
 }

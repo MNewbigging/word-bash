@@ -6,6 +6,8 @@ export function Bucket() {
       <div className="danger-overlay">
         <div className="lethal-row"></div>
       </div>
+
+      <div className="tile-layer"></div>
     </div>
   );
 }

@@ -1,0 +1,20 @@
+.tile {
+  width: 100%;
+  height: 100%;
+
+  display: grid;
+  place-items: center;
+
+  font-family: "Roboto Slab", serif;
+  font-weight: 800;
+  font-size: clamp(14px, 2.6vmin, 22px);
+  line-height: 1;
+  user-select: none;
+
+  // Paper tile look
+  background: rgba(255, 255, 255, 0.35);
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  box-shadow:
+    0 1px 0 rgba(0, 0, 0, 0.06),
+    0 3px 6px rgba(0, 0, 0, 0.08);
+}
