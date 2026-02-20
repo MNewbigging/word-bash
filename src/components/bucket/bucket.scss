@@ -1,6 +1,8 @@
 .bucket {
   --cols: 8;
   --rows: 14;
+  --cell-x: calc(100% / var(--cols));
+  --cell-y: calc(100% / var(--rows));
 
   aspect-ratio: var(--cols) / var(--rows);
 
@@ -28,8 +30,6 @@
     linear-gradient(rgba(0, 0, 0, 0.06) 1.25px, transparent 1.5px),
     linear-gradient(90deg, rgba(0, 0, 0, 0.06) 1.25px, transparent 1.5px);
 
-  --cell-x: calc(100% / var(--cols));
-  --cell-y: calc(100% / var(--rows));
   background-size: var(--cell-x) var(--cell-y);
 }
 
@@ -49,4 +49,60 @@
   );
 
   pointer-events: none;
+}
+
+.danger-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+
+    // Effect extends 3 rows
+    height: calc(var(--cell-y) * 3);
+
+    /* Paper-style warm wash */
+    background: linear-gradient(
+      to bottom,
+      rgba(201, 76, 76, 0.22) 0%,
+      /* stronger at top */ rgba(201, 76, 76, 0.14) 40%,
+      rgba(201, 76, 76, 0.06) 70%,
+      rgba(201, 76, 76, 0) 100%
+    );
+  }
+
+  // Danger line
+  &::after {
+    content: "";
+    position: absolute;
+    top: calc(var(--cell-y) + 1px); /* boundary between row 1 and row 2 */
+    left: 2px;
+    right: 0;
+    height: 2px;
+
+    background: repeating-linear-gradient(
+      to right,
+      rgba(201, 76, 76, 0.85) 0px,
+      rgba(201, 76, 76, 0.85) 6px,
+      transparent 6px,
+      transparent 12px
+    );
+
+    filter: drop-shadow(0 0 0.3px rgba(0, 0, 0, 0.15));
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.05); /* tiny ink depth */
+  }
+
+  .lethal-row {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: var(--cell-y);
+    background: rgba(201, 76, 76, 0.1);
+  }
 }
