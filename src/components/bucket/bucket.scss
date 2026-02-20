@@ -1,9 +1,13 @@
 .bucket {
+  --cols: 10;
+  --rows: 16;
+  aspect-ratio: var(--cols) / var(--rows);
+  width: min(92vw, 420px);
+  max-width: 420px;
+  max-height: 64vh;
+
   position: relative;
   overflow: hidden;
-  width: 100%;
-  max-width: 420px;
-  aspect-ratio: 10 / 16; // or match the grid
   background-color: #e9e4d8;
   border: 1px solid rgba(0, 0, 0, 0.15);
 
@@ -13,4 +17,36 @@
     // hard side shadow for frame feel
     inset 1px 0 4px rgba(0, 0, 0, 0.06),
     inset -1px 0 4px rgba(0, 0, 0, 0.06);
+}
+
+.bucket::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  // Will this work at any bucket size?
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.06) 1px, transparent 1px);
+
+  background-size: 10% 6.25%; // adjusted to the grid
+  pointer-events: none;
+}
+
+.bucket::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 6px;
+
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.15),
+    rgba(0, 0, 0, 0.05),
+    transparent
+  );
+
+  pointer-events: none;
 }
