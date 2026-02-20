@@ -58,22 +58,37 @@
   }
 
   .start-button {
+    user-select: none;
     cursor: pointer;
-    font-size: 18px;
+    font-family: "Roboto Slab", serif;
+    font-size: 20px;
     font-weight: 700;
-    padding: 14px 32px;
-    border-radius: 8px;
-    border: 2px solid $color-muted-clay;
-    background: transparent;
-    transition: all 0.15s ease;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+
+    padding: 16px 40px;
+    border-radius: 10px;
+    background: $color-muted-clay;
+    color: white;
+
+    box-shadow:
+      0 3px 0 #944632,
+      0 8px 18px rgba(0, 0, 0, 0.12);
+
+    transition: all 0.12s ease;
 
     &:hover {
-      background: $color-muted-clay;
-      color: white;
+      transform: translateY(-1px);
+      box-shadow:
+        0 4px 0 #944632,
+        0 10px 22px rgba(0, 0, 0, 0.14);
     }
 
     &:active {
-      transform: translateY(-1px);
+      transform: translateY(2px);
+      box-shadow:
+        0 1px 0 #944632,
+        0 4px 10px rgba(0, 0, 0, 0.1);
     }
   }
 }
