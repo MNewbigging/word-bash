@@ -1,11 +1,10 @@
-- forming words; tapping, submit button press
-- accepting words 
 - scoring logic
+- add word-bar clear button
+- word bar to handle words longer than it
 - tile animations: entry, cascade, hover
 - pause/resume
 - sound effects
 - design polish
-- add word-bar clear button 
 
 
 - clear word on invalid submit action?

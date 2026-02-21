@@ -1,6 +1,7 @@
 @import "../../common-styles.scss";
 
 .primary-button {
+  flex: 0 0 auto;
   z-index: 5;
   user-select: none;
   cursor: pointer;
