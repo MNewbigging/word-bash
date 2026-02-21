@@ -2,6 +2,7 @@ import { LetterTile } from "./game";
 
 export interface EventMap {
   "grid-changed": LetterTile[][];
+  "game-over": boolean;
 }
 
 export type EventCallback<T = any> = (event: T) => void;

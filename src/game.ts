@@ -25,6 +25,8 @@ export type LetterTile = {
 export class Game {
   readonly grid: LetterTile[][] = Array.from({ length: COLS }, () => []);
 
+  gameOver = false;
+
   private letterSpawner = new LetterSpawner();
   private nextId = 0;
 
@@ -32,8 +34,8 @@ export class Game {
     this.getLetterTile();
 
     setInterval(() => {
-      this.getLetterTile();
-    }, 500);
+      if (!this.gameOver) this.getLetterTile();
+    }, 100);
   }
 
   isValidWord(word: string) {
@@ -43,9 +45,15 @@ export class Game {
   addLetterTile(tile: LetterTile, col: number) {
     this.grid[col].push(tile);
     eventDispatcher.fire("grid-changed", this.grid);
+
+    // Check for end game
+    if (this.isGameOver()) {
+      this.gameOver = true;
+      eventDispatcher.fire("game-over", true);
+    }
   }
 
-  getLetterTile() {
+  private getLetterTile() {
     // First, get the letter tile properties
     const id = `tile-${this.nextId++}`;
     const letter = this.letterSpawner.getLetter(this.grid);
@@ -81,5 +89,13 @@ export class Game {
     }
 
     return winningColumn;
+  }
+
+  private isGameOver() {
+    for (const col of this.grid) {
+      if (col.length === ROWS) return true;
+    }
+
+    return false;
   }
 }
