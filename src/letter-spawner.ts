@@ -1,0 +1,96 @@
+import { LetterTile } from "./game";
+
+export type Letter = string; // A..Z
+
+export class LetterSpawner {
+  private readonly SCRABBLE_WEIGHTS: Record<Letter, number> = {
+    A: 9,
+    B: 2,
+    C: 2,
+    D: 4,
+    E: 12,
+    F: 2,
+    G: 3,
+    H: 2,
+    I: 9,
+    J: 1,
+    K: 1,
+    L: 4,
+    M: 2,
+    N: 6,
+    O: 8,
+    P: 2,
+    Q: 1,
+    R: 6,
+    S: 4,
+    T: 6,
+    U: 4,
+    V: 2,
+    W: 2,
+    X: 1,
+    Y: 2,
+    Z: 1,
+  };
+
+  private VOWELS = new Set<Letter>(["A", "E", "I", "O", "U"]);
+  private vowelChance = 0.45;
+
+  getLetter(grid: LetterTile[][]) {
+    // Make a new weights object from the base weights
+    const weights = { ...this.SCRABBLE_WEIGHTS };
+
+    // Adjust weights
+    this.applyQBiasToWeights(grid, weights);
+    this.applyVowelBiasToWeights(weights);
+
+    return this.getWeightedLetter(weights);
+  }
+
+  private applyQBiasToWeights(
+    grid: LetterTile[][],
+    weights: Record<Letter, number>,
+  ) {
+    let hasQ = false;
+    let hasU = false;
+
+    for (const col of grid) {
+      for (const tile of col) {
+        if (tile.letter === "Q") hasQ = true;
+        if (tile.letter === "U") hasU = true;
+        if (hasQ && hasU) break; // can exit row early since both are already true
+      }
+      if (hasQ && hasU) break; // early exit col
+    }
+
+    if (hasQ && !hasU) {
+      weights["Q"] = 0; // don't allow a second Q without a U
+      weights["U"] = 10; // boost U chance
+    }
+  }
+
+  private applyVowelBiasToWeights(weights: Record<Letter, number>) {
+    const wantVowel = Math.random() < this.vowelChance;
+
+    for (const [letter, _weight] of Object.entries(weights)) {
+      const isVowel = this.VOWELS.has(letter);
+
+      if (wantVowel && !isVowel) weights[letter] = 0;
+      if (!wantVowel && isVowel) weights[letter] = 0;
+    }
+  }
+
+  private getWeightedLetter(weights: Record<Letter, number>) {
+    // Get total weight
+    let total = 0;
+    for (const weight of Object.values(weights)) total += weight;
+
+    let rnd = Math.random() * total;
+    for (const [letter, weight] of Object.entries(weights)) {
+      rnd -= weight;
+      if (rnd <= 0) return letter;
+    }
+
+    // Fallback
+    return "E";
+  }
+}
