@@ -1,4 +1,5 @@
 import { Logo } from "../logo/logo";
+import { PrimaryButton } from "../primary-button/primary-button";
 import "./start-screen.scss";
 
 interface StartScreenProps {
@@ -35,12 +36,7 @@ export function StartScreen({ onStart, isReady }: StartScreenProps) {
         <p>If the play area fills - game over</p>
       </div>
 
-      <div
-        className={`start-button ${isReady ? "" : "loading"}`}
-        onClick={onStart}
-      >
-        {buttonLabel}
-      </div>
+      <PrimaryButton text={buttonLabel} onClick={onStart} disabled={!isReady} />
     </div>
   );
 }
