@@ -62,6 +62,12 @@ export class Game {
     eventDispatcher.fire("word-bar-changed", null);
   }
 
+  deleteWordBar() {
+    this.wordBar.forEach((tile) => (tile.inUse = false));
+    this.wordBar = [];
+    eventDispatcher.fire("word-bar-changed", null);
+  }
+
   private isValidWord(word: string) {
     return this.dictionary.has(word.toLowerCase());
   }
@@ -89,7 +95,8 @@ export class Game {
   private onKeyDown = (e: KeyboardEvent) => {
     // Handle delete
     if (e.key === "Backspace") {
-      this.deleteLastLetter();
+      if (e.ctrlKey) this.deleteWordBar();
+      else this.deleteLastLetter();
       return;
     } else if (e.key === "Enter") {
       this.submitWord();

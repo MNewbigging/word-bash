@@ -27,6 +27,10 @@ export function WordBar({ game }: WordBarProps) {
     game.submitWord();
   }
 
+  function onClear() {
+    game.deleteWordBar();
+  }
+
   return (
     <motion.div
       className="word-bar"
@@ -35,8 +39,16 @@ export function WordBar({ game }: WordBarProps) {
       exit={{ opacity: 0 }}
       transition={{ duration: 0.2, ease: "easeOut" }}
     >
-      <div className="word-display" ref={wordRef}>
-        {word}
+      <div className="word-display">
+        <div className="word-scroll" ref={wordRef}>
+          <span className="word-text">{word}</span>
+        </div>
+
+        {word.length > 0 && (
+          <button className="clear-button" onClick={onClear}>
+            x
+          </button>
+        )}
       </div>
 
       <PrimaryButton text="✓" onClick={onSubmit} size="sm" activeOnEnter />
