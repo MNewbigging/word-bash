@@ -27,3 +27,28 @@ $letter-high-value: #c67b5c;
 // letter borders should be darker versions of above
 // letter shadow to do
 $letter-radius: 6px;
+
+@mixin paper-texture() {
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.06;
+
+    background-image:
+      radial-gradient(rgba(0, 0, 0, 0.4) 1px, transparent 1px),
+      radial-gradient(rgba(0, 0, 0, 0.3) 1px, transparent 1px);
+
+    background-size:
+      3px 3px,
+      4px 4px;
+
+    background-position:
+      0 0,
+      1px 1px;
+  }
+}

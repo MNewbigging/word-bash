@@ -1,3 +1,5 @@
+@import "../../common-styles.scss";
+
 .overlay-backdrop {
   z-index: 10;
   position: fixed;
@@ -21,53 +23,16 @@
 
 .overlay {
   width: min(420px, 100%);
-  border-radius: 14px;
   padding: 22px 20px 18px;
+
+  @include paper-texture;
+
+  border-radius: 14px;
   outline: none;
   display: grid;
   place-items: center;
 
-  // paper base
-  background:
-    linear-gradient(
-      180deg,
-      rgba(255, 255, 255, 0.85),
-      rgba(255, 255, 255, 0.78)
-    ),
-    radial-gradient(
-      900px 500px at 20% 0%,
-      rgba(255, 255, 255, 0.55),
-      rgba(255, 255, 255, 0)
-    ),
-    // subtle paper grain (no assets)
-    repeating-linear-gradient(
-        0deg,
-        rgba(120, 96, 70, 0.025),
-        rgba(120, 96, 70, 0.025) 1px,
-        rgba(255, 255, 255, 0) 3px,
-        rgba(255, 255, 255, 0) 6px
-      );
-
-  border: 1px solid rgba(80, 60, 40, 0.12);
-
-  // warm shadow like lifted cardstock
-  box-shadow:
-    0 18px 55px rgba(0, 0, 0, 0.22),
-    0 2px 8px rgba(0, 0, 0, 0.1);
-
-  transform-origin: 50% 60%;
-
-  // optional: a little inner depth
-  position: relative;
-
-  &::before {
-    content: "";
-    position: absolute;
-    inset: 8px;
-    border-radius: 10px;
-    border: 1px solid rgba(90, 70, 45, 0.08);
-    pointer-events: none;
-  }
+  background-color: $main-background-color;
 
   .buttons {
     display: flex;

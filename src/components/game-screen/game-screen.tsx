@@ -3,7 +3,6 @@ import { Bucket } from "../bucket/bucket";
 import "./game-screen.scss";
 import { Game } from "../../game";
 import { GameEndOverlay } from "../game-end-overlay/game-end-overlay";
-import { useEventUpdater } from "../hooks/use-event-updater";
 import { useEventData } from "../hooks/use-event-data";
 
 interface GameScreenProps {

@@ -1,36 +1,17 @@
 @import "../../common-styles.scss";
 
 .start-screen {
-  position: relative;
-  overflow: hidden;
   width: 100vw;
   height: 100vh;
+
+  @include paper-texture;
+
   background-color: $main-background-color;
   padding-top: 12vh;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-
-  // Paper texture effect:
-  &::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    opacity: 0.06;
-
-    background-image:
-      radial-gradient(rgba(0, 0, 0, 0.4) 1px, transparent 1px),
-      radial-gradient(rgba(0, 0, 0, 0.3) 1px, transparent 1px);
-
-    background-size:
-      3px 3px,
-      4px 4px;
-    background-position:
-      0 0,
-      1px 1px;
-  }
 
   .logo-spacer {
     margin-bottom: var(--space-lg);
