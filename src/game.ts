@@ -9,7 +9,7 @@ export class Game {
 
   gameOver = false;
 
-  wordBarText = "";
+  wordBar: LetterTile[] = [];
 
   private letterSpawner: LetterSpawner;
 
@@ -44,6 +44,12 @@ export class Game {
   }
 
   private onKeyDown = (e: KeyboardEvent) => {
+    // Handle delete
+    if (e.key === "Backspace") {
+      this.handleDelete();
+      return;
+    }
+
     // Only bother with letter keys
     if (!this.isLetterKey(e)) return;
 
@@ -55,10 +61,19 @@ export class Game {
     tile.inUse = true;
 
     // Add it to the word bar
-    this.wordBarText += tile.letter;
+    this.wordBar.push(tile);
     eventDispatcher.fire("letter-used-change", null);
-    console.log("used letter", tile);
   };
+
+  private handleDelete() {
+    // Remove the last letter from the word bar
+    const lastLetter = this.wordBar.pop();
+    if (!lastLetter) return;
+
+    // No longer in use
+    lastLetter.inUse = false;
+    eventDispatcher.fire("letter-used-change", null);
+  }
 
   private isLetterKey(e: KeyboardEvent) {
     return /^[a-zA-Z]$/.test(e.key);

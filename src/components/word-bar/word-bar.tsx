@@ -11,7 +11,7 @@ interface WordBarProps {
 export function WordBar({ game }: WordBarProps) {
   useEventUpdater("letter-used-change");
 
-  const word = game.wordBarText;
+  const word = game.wordBar.map((tile) => tile.letter).join("");
 
   function onSubmit() {
     console.log("submit");
@@ -25,7 +25,7 @@ export function WordBar({ game }: WordBarProps) {
       exit={{ opacity: 0 }}
       transition={{ duration: 0.2, ease: "easeOut" }}
     >
-      <div className="word-display">{word.toUpperCase()}</div>
+      <div className="word-display">{word}</div>
 
       <PrimaryButton text="✓" onClick={onSubmit} size="sm" />
     </motion.div>
