@@ -14,7 +14,7 @@ interface TileLayerProps {
 }
 
 export function TileLayer({ game }: TileLayerProps) {
-  useEventUpdater("grid-changed");
+  useEventUpdater("grid-changed", "letter-used-change");
 
   // Flatten grid to get list of tiles to render
   const grid = game.grid;
@@ -36,7 +36,7 @@ export function TileLayer({ game }: TileLayerProps) {
         return (
           <div
             key={letterTile.id}
-            className="tile"
+            className={`tile ${letterTile.inUse ? "in-use" : ""}`}
             style={{
               ["--tx" as any]: `${col * 100}%`,
               ["--ty" as any]: `${row * 100}%`,

@@ -57,6 +57,7 @@ export class Game {
     // Add it to the word bar
     this.wordBarText += tile.letter;
     eventDispatcher.fire("letter-used-change", null);
+    console.log("used letter", tile);
   };
 
   private isLetterKey(e: KeyboardEvent) {

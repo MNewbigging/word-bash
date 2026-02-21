@@ -1,3 +1,5 @@
+@import "../../common-styles.scss";
+
 .tile-layer {
   z-index: 3;
   position: absolute;
@@ -17,6 +19,7 @@
   border-radius: 9px;
   font-weight: 900;
   font-size: clamp(14px, 2.25vmin, 22px);
+  text-transform: uppercase;
 
   line-height: 1;
   padding-top: 2px;
@@ -40,13 +43,6 @@
     );
 
   border: 1px solid rgba(0, 0, 0, 0.12);
-
-  box-shadow:
-    0 2px 0 rgba(0, 0, 0, 0.1),
-    0 4px 0 rgba(0, 0, 0, 0.12),
-    0 8px 12px rgba(0, 0, 0, 0.14),
-    inset 0 1px 0 rgba(255, 255, 255, 0.7),
-    inset 0 -3px 0 rgba(0, 0, 0, 0.1);
 
   transition:
     transform 120ms ease-out,
@@ -75,4 +71,26 @@
     0 10px 12px rgba(0, 0, 0, 0.14),
     inset 0 1px 0 rgba(255, 255, 255, 0.6),
     inset 0 -3px 0 rgba(0, 0, 0, 0.1);
+}
+
+.tile.in-use {
+  /* Pull it forward visually */
+  transform: translate(var(--tx), var(--ty)) scale(1.05);
+  box-sizing: border-box;
+
+  /* Strong ring */
+  box-shadow:
+    inset 0 0 0 3px $color-muted-clay,
+    /* clay accent ring */ 0 6px 16px rgba(0, 0, 0, 0.18);
+
+  border-color: $color-muted-clay;
+
+  /* Remove gloss so it feels activated */
+  background-image: none;
+
+  /* Slight warm tint */
+  background-color: #f3e6e2;
+
+  color: #5c2e22;
+  text-shadow: none;
 }

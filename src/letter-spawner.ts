@@ -96,7 +96,7 @@ export class LetterSpawner {
   private spawnLetterTile() {
     // First, get the letter tile properties
     const id = `tile-${this.nextId++}`;
-    const letter = this.getLetter(this.grid);
+    const letter = this.getLetter(this.grid).toLowerCase();
     const color = TILE_COLORS[Math.floor(Math.random() * TILE_COLORS.length)];
 
     // Then, pick a column
