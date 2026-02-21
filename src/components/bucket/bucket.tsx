@@ -18,6 +18,16 @@ export function Bucket({ game }: BucketProps) {
   );
 }
 
+const TILE_COLORS = [
+  "#4FA9A8", // teal
+  "#E08C3C", // orange
+  "#5C8DB8", // blue
+  "#6DAA6B", // green
+  "#B08A5A", // brown
+  "#D9D3C7", // light gray
+  "#B7B1A8", // mid gray
+];
+
 type RenderTile = {
   id: string;
   letter: Letter;
@@ -48,18 +58,25 @@ function TileLayer({ game }: TileLayerProps) {
 
   return (
     <div className="tile-layer">
-      {tiles.map(({ id, letter, col, row }) => (
-        <div
-          key={id}
-          className="tile"
-          style={{
-            transform: `translate(${col * 100}%, ${row * 100}%)`,
-            willChange: "transform",
-          }}
-        >
-          {letter}
-        </div>
-      ))}
+      {tiles.map(({ id, letter, col, row }) => {
+        // Pick a random colour
+        const color =
+          TILE_COLORS[Math.floor(Math.random() * TILE_COLORS.length)];
+
+        return (
+          <div
+            key={id}
+            className="tile"
+            style={{
+              ["--tx" as any]: `${col * 100}%`,
+              ["--ty" as any]: `${row * 100}%`,
+              ["--tile-bg" as any]: color,
+            }}
+          >
+            {letter}
+          </div>
+        );
+      })}
     </div>
   );
 }
