@@ -53,17 +53,13 @@ body {
 
 // Spacings
 
-:root {
-  --space-xs: 8px;
-  --space-sm: 16px;
-  --space-md: 24px;
-  --space-lg: 36px;
-  --space-xl: 48px;
-}
+$max-width: 420px;
 
 // Colours
 
 $main-background-color: #f4f1ea;
+$game-background-color: #f6f3ed;
+$bucket-background-color: #e9e4d8;
 $color-muted-clay: #b55a43;
 
 // Specific style/effect mixins

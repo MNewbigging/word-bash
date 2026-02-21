@@ -1,0 +1,78 @@
+.tile-layer {
+  z-index: 3;
+  position: absolute;
+  inset: 0;
+}
+
+.tile {
+  position: absolute;
+  width: var(--cell-x);
+  height: var(--cell-y);
+  transform: translate(var(--tx), var(--ty));
+
+  user-select: none;
+  box-sizing: border-box;
+  display: grid;
+  place-items: center;
+  border-radius: 9px;
+  font-weight: 900;
+  font-size: clamp(14px, 2.25vmin, 22px);
+
+  line-height: 1;
+  padding-top: 2px;
+
+  color: rgba(15, 15, 15, 0.85);
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.35);
+
+  background-color: var(--tile-bg, #d9d9d9);
+
+  /* glossy bevel */
+  background-image:
+    linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.55),
+      rgba(255, 255, 255, 0.06)
+    ),
+    radial-gradient(
+      circle at 30% 25%,
+      rgba(255, 255, 255, 0.35),
+      transparent 55%
+    );
+
+  border: 1px solid rgba(0, 0, 0, 0.12);
+
+  box-shadow:
+    0 2px 0 rgba(0, 0, 0, 0.1),
+    0 4px 0 rgba(0, 0, 0, 0.12),
+    0 8px 12px rgba(0, 0, 0, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.7),
+    inset 0 -3px 0 rgba(0, 0, 0, 0.1);
+
+  transition:
+    transform 120ms ease-out,
+    box-shadow 120ms ease-out;
+
+  will-change: transform;
+}
+
+.tile:hover {
+  /* lift UP a hair so shadow doesn't crash into tile below */
+  transform: translate(var(--tx), var(--ty)) translateY(-1px);
+
+  box-shadow:
+    0 3px 0 rgba(0, 0, 0, 0.1),
+    0 6px 0 rgba(0, 0, 0, 0.14),
+    0 14px 18px rgba(0, 0, 0, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.75),
+    inset 0 -3px 0 rgba(0, 0, 0, 0.1);
+}
+
+.tile:active {
+  transform: translate(var(--tx), var(--ty)) translateY(2px);
+  box-shadow:
+    0 2px 0 rgba(0, 0, 0, 0.12),
+    0 5px 0 rgba(0, 0, 0, 0.14),
+    0 10px 12px rgba(0, 0, 0, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6),
+    inset 0 -3px 0 rgba(0, 0, 0, 0.1);
+}

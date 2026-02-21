@@ -13,17 +13,17 @@
   align-items: center;
 
   .logo-spacer {
-    margin-bottom: var(--space-lg);
+    margin-bottom: 36px;
   }
 
   .tagline {
-    margin-bottom: var(--space-md);
+    margin-bottom: 24px;
     @include tagline-text;
   }
 
   .how-to-play {
-    max-width: 420px;
-    margin-bottom: var(--space-lg);
+    max-width: $max-width;
+    margin-bottom: 36px;
     @include how-to-text;
 
     p {
@@ -41,7 +41,7 @@
   span {
     position: absolute;
     font-size: 60px;
-    color: rgba(0, 0, 0, 0.05);
+    opacity: 0.05;
     animation: fall 14s linear infinite backwards;
   }
 }

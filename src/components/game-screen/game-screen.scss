@@ -2,7 +2,7 @@
 
 .game-screen {
   min-height: 100vh;
-  background-color: #f6f3ed;
+  background-color: $game-background-color;
 
   display: flex;
   flex-direction: column;
