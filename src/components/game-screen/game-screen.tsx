@@ -4,6 +4,8 @@ import "./game-screen.scss";
 import { Game } from "../../game";
 import { GameEndOverlay } from "../game-end-overlay/game-end-overlay";
 import { useEventData } from "../hooks/use-event-data";
+import { ScoreBar } from "../score-bar/score-bar";
+import { WordBar } from "../word-bar/word-bar";
 
 interface GameScreenProps {
   dictionary: Set<string>;
@@ -22,13 +24,17 @@ export function GameScreen({ dictionary }: GameScreenProps) {
     <>
       {gameOver && <GameEndOverlay />}
       <div className="game-screen">
-        <div className="top-bar"></div>
+        <div className="top-bar">
+          <ScoreBar />
+        </div>
 
         <div className="play-area">
           <Bucket game={gameRef.current} />
         </div>
 
-        <div className="word-bar"></div>
+        <div className="bot-bar">
+          <WordBar />
+        </div>
       </div>
     </>
   );

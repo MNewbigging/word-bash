@@ -33,9 +33,9 @@ export class Game {
   constructor(private dictionary: Set<string>) {
     this.getLetterTile();
 
-    setInterval(() => {
-      if (!this.gameOver) this.getLetterTile();
-    }, 10);
+    // setInterval(() => {
+    //   if (!this.gameOver) this.getLetterTile();
+    // }, 10);
   }
 
   isValidWord(word: string) {

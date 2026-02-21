@@ -35,7 +35,7 @@ export function GameEndOverlay() {
         <OverlayStats />
 
         <div className="buttons">
-          <PrimaryButton text="Restart" onClick={onRestart} />
+          <PrimaryButton text="Restart" onClick={onRestart} size="md" />
           <SecondaryButton text="View board" onClick={onViewBoard} />
         </div>
       </motion.div>

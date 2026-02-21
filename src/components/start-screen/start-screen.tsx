@@ -36,7 +36,12 @@ export function StartScreen({ onStart, isReady }: StartScreenProps) {
         <p>If the play area fills - game over</p>
       </div>
 
-      <PrimaryButton text={buttonLabel} onClick={onStart} disabled={!isReady} />
+      <PrimaryButton
+        text={buttonLabel}
+        onClick={onStart}
+        disabled={!isReady}
+        size="lg"
+      />
     </div>
   );
 }

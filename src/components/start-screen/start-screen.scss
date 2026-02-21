@@ -1,6 +1,7 @@
 @import "../../common-styles.scss";
 
 .start-screen {
+  z-index: 5;
   width: 100vw;
   height: 100vh;
   padding-top: 12vh;

@@ -6,19 +6,24 @@
 
   display: flex;
   flex-direction: column;
+  align-items: center;
 
   .top-bar {
     height: 60px;
+    width: $max-width;
   }
 
   .play-area {
     flex: 1 1;
+    width: $max-width;
     display: flex;
     align-items: center;
     justify-content: center;
   }
 
-  .word-bar {
-    height: 80px;
+  .bot-bar {
+    min-height: 80px;
+    flex: 1;
+    width: $max-width;
   }
 }
