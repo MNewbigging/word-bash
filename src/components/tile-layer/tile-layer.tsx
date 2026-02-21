@@ -16,6 +16,11 @@ interface TileLayerProps {
 export function TileLayer({ game }: TileLayerProps) {
   useEventUpdater("grid-changed", "word-bar-changed");
 
+  function onClickTile(tile: LetterTile) {
+    if (tile.inUse) game.unuseLetter(tile);
+    else game.useLetter(tile);
+  }
+
   // Flatten grid to get list of tiles to render
   const grid = game.grid;
   const tiles: RenderTile[] = [];
@@ -36,6 +41,7 @@ export function TileLayer({ game }: TileLayerProps) {
         return (
           <div
             key={letterTile.id}
+            onClick={() => onClickTile(letterTile)}
             className={`tile ${letterTile.inUse ? "in-use" : ""}`}
             style={{
               ["--tx" as any]: `${col * 100}%`,

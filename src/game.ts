@@ -26,6 +26,42 @@ export class Game {
     window.addEventListener("keydown", this.onKeyDown);
   }
 
+  submitWord() {
+    if (this.wordBar.length < this.minWordLength) return;
+
+    // Submit the formed word for inspection!
+    const word = this.wordBar.map((tile) => tile.letter).join("");
+    if (this.isValidWord(word)) {
+      // Great!
+      console.log("score!");
+      this.scoreWord(word);
+      this.clearWordBar();
+    } else {
+      console.log("invalid word");
+    }
+  }
+
+  useLetter(tile: LetterTile) {
+    if (tile.inUse) return;
+
+    // Use it
+    tile.inUse = true;
+
+    // Add it to the word bar
+    this.wordBar.push(tile);
+    eventDispatcher.fire("word-bar-changed", null);
+  }
+
+  unuseLetter(tile: LetterTile) {
+    if (!tile.inUse) return;
+
+    tile.inUse = false;
+
+    // Remove from word bar
+    this.wordBar = this.wordBar.filter((wbTile) => wbTile.id !== tile.id);
+    eventDispatcher.fire("word-bar-changed", null);
+  }
+
   private isValidWord(word: string) {
     return this.dictionary.has(word.toLowerCase());
   }
@@ -37,6 +73,7 @@ export class Game {
     // Check for end game
     if (this.isGameOver()) {
       this.gameOver = true;
+      this.letterSpawner.pause();
       eventDispatcher.fire("game-over", true);
     }
   };
@@ -52,10 +89,10 @@ export class Game {
   private onKeyDown = (e: KeyboardEvent) => {
     // Handle delete
     if (e.key === "Backspace") {
-      this.handleDelete();
+      this.deleteLastLetter();
       return;
     } else if (e.key === "Enter") {
-      this.handleEnter();
+      this.submitWord();
       return;
     }
 
@@ -66,15 +103,10 @@ export class Game {
     const tile = this.getLowestFreeMatchingLetter(e.key.toUpperCase());
     if (!tile) return;
 
-    // Use it
-    tile.inUse = true;
-
-    // Add it to the word bar
-    this.wordBar.push(tile);
-    eventDispatcher.fire("word-bar-changed", null);
+    this.useLetter(tile);
   };
 
-  private handleDelete() {
+  private deleteLastLetter() {
     // Remove the last letter from the word bar
     const lastLetter = this.wordBar.pop();
     if (!lastLetter) return;
@@ -82,21 +114,6 @@ export class Game {
     // No longer in use
     lastLetter.inUse = false;
     eventDispatcher.fire("word-bar-changed", null);
-  }
-
-  private handleEnter() {
-    if (this.wordBar.length < this.minWordLength) return;
-
-    // Submit the formed word for inspection!
-    const word = this.wordBar.map((tile) => tile.letter).join("");
-    if (this.isValidWord(word)) {
-      // Great!
-      console.log("score!");
-      this.scoreWord(word);
-      this.clearWordBar();
-    } else {
-      console.log("invalid word");
-    }
   }
 
   private scoreWord(word: string) {

@@ -1,12 +1,13 @@
-- forming words
+- forming words; tapping, submit button press
 - accepting words 
 - scoring logic
-- tile animations (entry & cascade)
+- tile animations: entry, cascade, hover
 - pause/resume
 - sound effects
 - design polish
+- add word-bar clear button 
 
 
-Then:
+- clear word on invalid submit action?
 - playtest; tweak difficulty accordingly
 - fix react root error

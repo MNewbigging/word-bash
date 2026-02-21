@@ -14,7 +14,7 @@ export function WordBar({ game }: WordBarProps) {
   const word = game.wordBar.map((tile) => tile.letter).join("");
 
   function onSubmit() {
-    console.log("submit");
+    game.submitWord();
   }
 
   return (
