@@ -19,6 +19,35 @@ export class Game {
 
   private letterSpawner: LetterSpawner;
 
+  private LETTER_SCORES: Record<string, number> = {
+    A: 1,
+    B: 3,
+    C: 3,
+    D: 2,
+    E: 1,
+    F: 4,
+    G: 2,
+    H: 4,
+    I: 1,
+    J: 8,
+    K: 5,
+    L: 1,
+    M: 3,
+    N: 1,
+    O: 1,
+    P: 3,
+    Q: 10,
+    R: 1,
+    S: 1,
+    T: 1,
+    U: 1,
+    V: 4,
+    W: 4,
+    X: 8,
+    Y: 4,
+    Z: 10,
+  };
+
   constructor(private dictionary: Set<string>) {
     this.letterSpawner = new LetterSpawner(this.grid, this.addLetterTile);
     this.letterSpawner.scheduleNextSpawn();
@@ -124,9 +153,19 @@ export class Game {
   }
 
   private scoreWord(word: string) {
-    // todo improve
-    this.score += word.length;
+    // Use scrabble scores plus a length bonus
+    const baseScore = [...word].reduce(
+      (sum, letter) => sum + this.LETTER_SCORES[letter],
+      0,
+    );
+    const lengthMultiplier = 1 + (word.length - 3) * 0.15;
+    const wordPoints = Math.floor(baseScore * lengthMultiplier);
+    this.score += wordPoints;
+
+    // Track total number of words
     this.wordsFormed++;
+
+    // Track longest word
     if (word.length > this.longestWord.length) this.longestWord = word;
 
     eventDispatcher.fire("score-changed", null);
@@ -173,3 +212,5 @@ export class Game {
     return lowestTile;
   }
 }
+
+function getScrabbleLetterScore(letter: string) {}
