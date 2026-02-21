@@ -48,7 +48,7 @@ export class Game {
     if (!this.isLetterKey(e)) return;
 
     // Get a matching tile in play that isn't already in use
-    const tile = this.getLowestFreeMatchingLetter(e.key);
+    const tile = this.getLowestFreeMatchingLetter(e.key.toUpperCase());
     if (!tile) return;
 
     // Use it

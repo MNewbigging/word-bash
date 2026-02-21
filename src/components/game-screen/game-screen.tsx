@@ -57,7 +57,7 @@ export function GameScreen({ dictionary }: GameScreenProps) {
 
         <div className="bot-bar">
           <AnimatePresence>
-            {!viewBoard && <WordBar />}
+            {!viewBoard && <WordBar game={gameRef.current} />}
             {viewBoard && <RestartBanner onRestart={handleRestart} />}
           </AnimatePresence>
         </div>

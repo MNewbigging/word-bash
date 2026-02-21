@@ -1,8 +1,18 @@
 import { motion } from "framer-motion";
 import { PrimaryButton } from "../primary-button/primary-button";
 import "./word-bar.scss";
+import { useEventUpdater } from "../hooks/use-event-updater";
+import { Game } from "../../game";
 
-export function WordBar() {
+interface WordBarProps {
+  game: Game;
+}
+
+export function WordBar({ game }: WordBarProps) {
+  useEventUpdater("letter-used-change");
+
+  const word = game.wordBarText;
+
   function onSubmit() {
     console.log("submit");
   }
@@ -15,7 +25,7 @@ export function WordBar() {
       exit={{ opacity: 0 }}
       transition={{ duration: 0.2, ease: "easeOut" }}
     >
-      <div className="word-display">PAPERWORK</div>
+      <div className="word-display">{word.toUpperCase()}</div>
 
       <PrimaryButton text="✓" onClick={onSubmit} size="sm" />
     </motion.div>
