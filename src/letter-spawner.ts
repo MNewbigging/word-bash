@@ -16,6 +16,7 @@ export type LetterTile = {
   id: string;
   letter: Letter;
   color: string;
+  inUse: boolean;
 };
 
 export class LetterSpawner {
@@ -102,7 +103,7 @@ export class LetterSpawner {
     const col = this.getRandomColumnIndex();
 
     // Then add it
-    this.addLetterTile({ id, letter, color }, col);
+    this.addLetterTile({ id, letter, color, inUse: false }, col);
   }
 
   private getRandomColumnIndex() {

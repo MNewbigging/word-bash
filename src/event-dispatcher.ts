@@ -1,8 +1,9 @@
-import { LetterTile } from "./game";
+import { LetterTile } from "./letter-spawner";
 
 export interface EventMap {
-  "grid-changed": LetterTile[][];
+  "grid-changed": null;
   "game-over": boolean;
+  "letter-used-change": null;
 }
 
 export type EventCallback<T = any> = (event: T) => void;

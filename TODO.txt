@@ -9,3 +9,4 @@
 
 Then:
 - playtest; tweak difficulty accordingly
+- fix react root error
