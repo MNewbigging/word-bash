@@ -1,0 +1,6 @@
+- spawn rate logic
+- forming words
+- accepting words 
+- scoring logic
+- sound effects
+- design polish
