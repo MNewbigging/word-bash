@@ -53,6 +53,7 @@
       0 10px 22px rgba(0, 0, 0, 0.14);
   }
 
+  &.active,
   &:active {
     transform: translateY(2px);
     box-shadow:

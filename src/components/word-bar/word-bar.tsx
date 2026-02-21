@@ -27,7 +27,7 @@ export function WordBar({ game }: WordBarProps) {
     >
       <div className="word-display">{word}</div>
 
-      <PrimaryButton text="✓" onClick={onSubmit} size="sm" />
+      <PrimaryButton text="✓" onClick={onSubmit} size="sm" activeOnEnter />
     </motion.div>
   );
 }
