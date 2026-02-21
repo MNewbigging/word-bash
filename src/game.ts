@@ -23,7 +23,7 @@ export type LetterTile = {
 };
 
 export class Game {
-  readonly grid: LetterTile[][] = Array.from({ length: COLS }, () => []);
+  grid: LetterTile[][] = Array.from({ length: COLS }, () => []);
 
   gameOver = false;
 

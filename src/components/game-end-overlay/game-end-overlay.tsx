@@ -6,13 +6,13 @@ import { SecondaryButton } from "../secondary-button/secondary-button";
 
 interface GameEndOverlayProps {
   onViewBoard: () => void;
+  onRestart: () => void;
 }
 
-export function GameEndOverlay({ onViewBoard }: GameEndOverlayProps) {
-  function onRestart() {
-    console.log("restart");
-  }
-
+export function GameEndOverlay({
+  onViewBoard,
+  onRestart,
+}: GameEndOverlayProps) {
   return (
     <motion.div
       className="overlay-backdrop"

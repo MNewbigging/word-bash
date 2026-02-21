@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useReducer, useRef, useState } from "react";
 import { Bucket } from "../bucket/bucket";
 import "./game-screen.scss";
 import { Game } from "../../game";
@@ -8,6 +8,7 @@ import { ScoreBar } from "../score-bar/score-bar";
 import { WordBar } from "../word-bar/word-bar";
 import { AnimatePresence } from "framer-motion";
 import { RestartBanner } from "../restart-banner/restart-banner";
+import { useEventUpdater } from "../hooks/use-event-updater";
 
 interface GameScreenProps {
   dictionary: Set<string>;
@@ -15,6 +16,14 @@ interface GameScreenProps {
 
 export function GameScreen({ dictionary }: GameScreenProps) {
   const [viewBoard, setViewBoard] = useState(false);
+  const [, forceUpdate] = useReducer((x) => x + 1, 0);
+  useEventUpdater("game-over");
+
+  function handleRestart() {
+    gameRef.current = new Game(dictionary);
+    if (viewBoard) setViewBoard(false);
+    else forceUpdate();
+  }
 
   // Setup game instance once
   const gameRef = useRef<Game | null>(null);
@@ -23,14 +32,17 @@ export function GameScreen({ dictionary }: GameScreenProps) {
   }
 
   // Game end overlay condition
-  const gameOver = useEventData("game-over");
+  const gameOver = gameRef.current.gameOver;
   const showOverlay = gameOver && !viewBoard;
 
   return (
     <>
       <AnimatePresence>
         {showOverlay && (
-          <GameEndOverlay onViewBoard={() => setViewBoard(true)} />
+          <GameEndOverlay
+            onViewBoard={() => setViewBoard(true)}
+            onRestart={handleRestart}
+          />
         )}
       </AnimatePresence>
 
@@ -46,7 +58,7 @@ export function GameScreen({ dictionary }: GameScreenProps) {
         <div className="bot-bar">
           <AnimatePresence>
             {!viewBoard && <WordBar />}
-            {viewBoard && <RestartBanner />}
+            {viewBoard && <RestartBanner onRestart={handleRestart} />}
           </AnimatePresence>
         </div>
       </div>

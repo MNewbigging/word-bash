@@ -2,11 +2,11 @@ import { motion } from "framer-motion";
 import { PrimaryButton } from "../primary-button/primary-button";
 import "./restart-banner.scss";
 
-export function RestartBanner() {
-  function onRestart() {
-    console.log("restart");
-  }
+interface RestartBannerProps {
+  onRestart: () => void;
+}
 
+export function RestartBanner({ onRestart }: RestartBannerProps) {
   return (
     <motion.div
       className="restart-banner"
