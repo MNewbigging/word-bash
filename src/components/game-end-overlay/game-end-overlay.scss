@@ -26,13 +26,10 @@
   padding: 22px 20px 18px;
 
   @include paper-texture;
-
   border-radius: 14px;
-  outline: none;
+
   display: grid;
   place-items: center;
-
-  background-color: $main-background-color;
 
   .buttons {
     display: flex;
@@ -56,13 +53,9 @@
 }
 
 .label {
-  font-size: 13px;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  opacity: 0.6;
+  @include stat-label-text;
 }
 
 .value {
-  font-size: 20px;
-  font-weight: 700;
+  @include stat-value-text;
 }

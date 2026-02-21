@@ -1,6 +1,7 @@
 @import "../../common-styles.scss";
 
 .logo {
+  z-index: 5;
   display: inline-flex;
   flex-direction: column;
   padding: 24px 32px;

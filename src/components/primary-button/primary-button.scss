@@ -4,16 +4,11 @@
   user-select: none;
   cursor: pointer;
 
-  font-family: "Roboto Slab", serif;
-  font-size: 20px;
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
+  @include primary-button-text;
 
   padding: 16px 40px;
   border-radius: 10px;
   background: $color-muted-clay;
-  color: white;
 
   box-shadow:
     0 3px 0 #944632,

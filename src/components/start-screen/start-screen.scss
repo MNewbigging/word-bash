@@ -3,11 +3,10 @@
 .start-screen {
   width: 100vw;
   height: 100vh;
+  padding-top: 12vh;
 
   @include paper-texture;
 
-  background-color: $main-background-color;
-  padding-top: 12vh;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -19,69 +18,16 @@
 
   .tagline {
     margin-bottom: var(--space-md);
-    font-size: 20px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: rgba(0, 0, 0, 0.6);
+    @include tagline-text;
   }
 
   .how-to-play {
     max-width: 420px;
     margin-bottom: var(--space-lg);
-    font-family: "Inter", sans-serif;
-    font-size: 16px;
-    line-height: 1.6;
-    color: rgba(0, 0, 0, 0.75);
+    @include how-to-text;
 
     p {
       margin: 6px 0;
-    }
-  }
-
-  .start-button {
-    user-select: none;
-    cursor: pointer;
-    font-family: "Roboto Slab", serif;
-    font-size: 20px;
-    font-weight: 700;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-
-    padding: 16px 40px;
-    border-radius: 10px;
-    background: $color-muted-clay;
-    color: white;
-
-    box-shadow:
-      0 3px 0 #944632,
-      0 8px 18px rgba(0, 0, 0, 0.12);
-
-    transition: all 0.12s ease;
-
-    &.loading {
-      opacity: 0.6;
-      cursor: default;
-      pointer-events: none;
-      animation: subtlePulse 1.6s ease-in-out infinite;
-
-      /* Slightly softer shadow */
-      box-shadow:
-        0 2px 0 rgba(148, 70, 50, 0.6),
-        0 6px 14px rgba(0, 0, 0, 0.08);
-    }
-
-    &:hover {
-      transform: translateY(-1px);
-      box-shadow:
-        0 4px 0 #944632,
-        0 10px 22px rgba(0, 0, 0, 0.14);
-    }
-
-    &:active {
-      transform: translateY(2px);
-      box-shadow:
-        0 1px 0 #944632,
-        0 4px 10px rgba(0, 0, 0, 0.1);
     }
   }
 }
@@ -139,15 +85,5 @@
   }
   to {
     transform: translateY(120vh) rotateZ(180deg);
-  }
-}
-
-@keyframes subtlePulse {
-  0%,
-  100% {
-    opacity: 0.55;
-  }
-  50% {
-    opacity: 0.75;
   }
 }

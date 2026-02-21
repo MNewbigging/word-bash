@@ -1,9 +1,57 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
 
+// Typography
+
 body {
   font-family: "Roboto Slab", serif;
 }
+
+@mixin tagline-text() {
+  font-size: 20px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.6;
+}
+
+@mixin how-to-text() {
+  font-family: "Inter", sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  opacity: 0.75;
+}
+
+@mixin primary-button-text() {
+  font-family: "Roboto Slab", serif;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: white;
+}
+
+@mixin secondary-button-text() {
+  font-family: "Roboto Slab", serif;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #4a3a2e;
+}
+
+@mixin stat-label-text() {
+  font-size: 13px;
+  letter-spacing: 0.15em;
+  opacity: 0.6;
+  text-transform: uppercase;
+}
+
+@mixin stat-value-text() {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+// Spacings
 
 :root {
   --space-xs: 8px;
@@ -13,22 +61,15 @@ body {
   --space-xl: 48px;
 }
 
-$main-background-color: #f4f1ea;
+// Colours
 
+$main-background-color: #f4f1ea;
 $color-muted-clay: #b55a43;
 
-$grid-line-color: rgba(0, 0, 0, 0.6);
-$danger-line-color: #c94c4c;
-
-$vowel-color: #8fa8b3;
-$consonant-common: #c9c3b8;
-$letter-mid-value: #a3a380;
-$letter-high-value: #c67b5c;
-// letter borders should be darker versions of above
-// letter shadow to do
-$letter-radius: 6px;
+// Specific style/effect mixins
 
 @mixin paper-texture() {
+  background-color: $main-background-color;
   position: relative;
   overflow: hidden;
 
