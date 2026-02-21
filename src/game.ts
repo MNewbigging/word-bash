@@ -1,29 +1,36 @@
-const COLS = 8;
-const ROWS = 14;
+import { eventDispatcher } from "./event-dispatcher";
 
-type Letter = string; // A..Z
-type Tile = {
+export const COLS = 8;
+export const ROWS = 14;
+
+export type Letter = string; // A..Z
+
+export type LetterTile = {
   id: string;
   letter: Letter;
 };
 
 export class Game {
-  private grid: Tile[][] = Array.from({ length: COLS }, () => []);
+  readonly grid: LetterTile[][] = Array.from({ length: COLS }, () => []);
 
   constructor(private dictionary: Set<string>) {
-    // Manually add letters to get rendering working
-    this.grid[0].push({ id: "tile", letter: "a" });
+    setTimeout(() => {
+      this.addLetterTile(
+        {
+          id: "tile",
+          letter: "a",
+        },
+        0,
+      );
+    }, 1000);
   }
 
   isValidWord(word: string) {
     return this.dictionary.has(word);
   }
-}
 
-/**
- * Falling letters:
- *
- * Once a letter is spawned, it should fall downwards within its column and come to a stop at the last available row position (aka landing position).
- * This landing position might change during the fall; as players use existing letters, this may free up space.
- * So the falling letter needs to check each frame that it falls what the furthest available landing space is.
- */
+  addLetterTile(tile: LetterTile, col: number) {
+    this.grid[col].push(tile);
+    eventDispatcher.fire("grid-changed", this.grid);
+  }
+}

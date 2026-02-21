@@ -14,14 +14,12 @@ export function GameScreen({ dictionary }: GameScreenProps) {
     gameRef.current = new Game(dictionary);
   }
 
-  // Needs to re-render on game events - see how Aakash did it for work recently
-
   return (
     <div className="game-screen">
       <div className="top-bar"></div>
 
       <div className="play-area">
-        <Bucket />
+        <Bucket game={gameRef.current} />
       </div>
 
       <div className="word-bar"></div>

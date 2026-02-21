@@ -1,9 +1,10 @@
+import { LetterTile } from "../../game";
 import "./tile.scss";
 
 export interface TileProps {
-  letter: string;
+  tile: LetterTile;
 }
 
-export function Tile({ letter }: TileProps) {
-  return <div className="tile">{letter}</div>;
+export function Tile({ tile }: TileProps) {
+  return <div className="tile">{tile.letter}</div>;
 }

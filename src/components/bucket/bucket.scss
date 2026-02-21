@@ -115,9 +115,15 @@
   z-index: 3;
   position: absolute;
   inset: 0;
+  padding: 1px;
+}
+
+.tile {
+  position: absolute;
+  width: var(--cell-x);
+  height: var(--cell-y);
 
   display: grid;
-  grid-template-columns: repeat(var(--cols), 1fr);
-  grid-template-rows: repeat(var(--rows), 1fr);
-  padding: 1px;
+  place-items: center;
+  border: 1px solid black;
 }
