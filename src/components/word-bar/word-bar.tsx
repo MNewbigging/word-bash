@@ -9,7 +9,7 @@ interface WordBarProps {
 }
 
 export function WordBar({ game }: WordBarProps) {
-  useEventUpdater("letter-used-change");
+  useEventUpdater("word-bar-changed");
 
   const word = game.wordBar.map((tile) => tile.letter).join("");
 

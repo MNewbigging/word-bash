@@ -40,6 +40,7 @@ export function GameScreen({ dictionary }: GameScreenProps) {
       <AnimatePresence>
         {showOverlay && (
           <GameEndOverlay
+            game={gameRef.current}
             onViewBoard={() => setViewBoard(true)}
             onRestart={handleRestart}
           />
@@ -48,7 +49,7 @@ export function GameScreen({ dictionary }: GameScreenProps) {
 
       <div className="game-screen">
         <div className="top-bar">
-          <ScoreBar />
+          <ScoreBar game={gameRef.current} />
         </div>
 
         <div className="play-area">

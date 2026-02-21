@@ -14,7 +14,7 @@ interface TileLayerProps {
 }
 
 export function TileLayer({ game }: TileLayerProps) {
-  useEventUpdater("grid-changed", "letter-used-change");
+  useEventUpdater("grid-changed", "word-bar-changed");
 
   // Flatten grid to get list of tiles to render
   const grid = game.grid;

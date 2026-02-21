@@ -3,13 +3,16 @@ import "./game-end-overlay.scss";
 import { Logo } from "../logo/logo";
 import { PrimaryButton } from "../primary-button/primary-button";
 import { SecondaryButton } from "../secondary-button/secondary-button";
+import { Game } from "../../game";
 
 interface GameEndOverlayProps {
+  game: Game;
   onViewBoard: () => void;
   onRestart: () => void;
 }
 
 export function GameEndOverlay({
+  game,
   onViewBoard,
   onRestart,
 }: GameEndOverlayProps) {
@@ -34,7 +37,7 @@ export function GameEndOverlay({
         }}
       >
         <Logo altWord1="GAME" altWord2="OVER" />
-        <OverlayStats />
+        <OverlayStats game={game} />
 
         <div className="buttons">
           <PrimaryButton text="Restart" onClick={onRestart} size="md" />
@@ -45,22 +48,22 @@ export function GameEndOverlay({
   );
 }
 
-function OverlayStats() {
+function OverlayStats({ game }: { game: Game }) {
   return (
     <div className="overlay-stats">
       <div className="stat">
         <span className="label">Score</span>
-        <span className="value">12,345</span>
+        <span className="value">{game.score}</span>
       </div>
 
       <div className="stat">
         <span className="label">Words Formed</span>
-        <span className="value">52</span>
+        <span className="value">{game.wordsFormed}</span>
       </div>
 
       <div className="stat">
         <span className="label">Longest Word</span>
-        <span className="value">Paperwork</span>
+        <span className="value">{game.longestWord}</span>
       </div>
     </div>
   );

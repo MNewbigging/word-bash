@@ -1,7 +1,15 @@
 import { motion } from "framer-motion";
 import "./score-bar.scss";
+import { Game } from "../../game";
+import { useEventUpdater } from "../hooks/use-event-updater";
 
-export function ScoreBar() {
+interface ScoreBarProps {
+  game: Game;
+}
+
+export function ScoreBar({ game }: ScoreBarProps) {
+  useEventUpdater("score-changed");
+
   return (
     <motion.div
       className="score-bar"
@@ -14,7 +22,7 @@ export function ScoreBar() {
 
       <div className="score-block">
         <div className="score-label">Score</div>
-        <div className="score-value">12,450</div>
+        <div className="score-value">{game.score}</div>
       </div>
 
       <div className="icon-button">⚙</div>

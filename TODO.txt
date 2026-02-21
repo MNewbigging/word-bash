@@ -1,7 +1,7 @@
 - forming words
 - accepting words 
 - scoring logic
-- tile animations
+- tile animations (entry & cascade)
 - pause/resume
 - sound effects
 - design polish

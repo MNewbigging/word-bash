@@ -8,8 +8,14 @@ export class Game {
   readonly grid: LetterTile[][] = Array.from({ length: COLS }, () => []);
 
   gameOver = false;
-
   wordBar: LetterTile[] = [];
+
+  // Stats
+  score = 0;
+  wordsFormed = 0;
+  longestWord = "";
+
+  private minWordLength = 3;
 
   private letterSpawner: LetterSpawner;
 
@@ -20,8 +26,8 @@ export class Game {
     window.addEventListener("keydown", this.onKeyDown);
   }
 
-  isValidWord(word: string) {
-    return this.dictionary.has(word);
+  private isValidWord(word: string) {
+    return this.dictionary.has(word.toLowerCase());
   }
 
   private addLetterTile = (tile: LetterTile, col: number) => {
@@ -48,6 +54,9 @@ export class Game {
     if (e.key === "Backspace") {
       this.handleDelete();
       return;
+    } else if (e.key === "Enter") {
+      this.handleEnter();
+      return;
     }
 
     // Only bother with letter keys
@@ -62,7 +71,7 @@ export class Game {
 
     // Add it to the word bar
     this.wordBar.push(tile);
-    eventDispatcher.fire("letter-used-change", null);
+    eventDispatcher.fire("word-bar-changed", null);
   };
 
   private handleDelete() {
@@ -72,7 +81,47 @@ export class Game {
 
     // No longer in use
     lastLetter.inUse = false;
-    eventDispatcher.fire("letter-used-change", null);
+    eventDispatcher.fire("word-bar-changed", null);
+  }
+
+  private handleEnter() {
+    if (this.wordBar.length < this.minWordLength) return;
+
+    // Submit the formed word for inspection!
+    const word = this.wordBar.map((tile) => tile.letter).join("");
+    if (this.isValidWord(word)) {
+      // Great!
+      console.log("score!");
+      this.scoreWord(word);
+      this.clearWordBar();
+    } else {
+      console.log("invalid word");
+    }
+  }
+
+  private scoreWord(word: string) {
+    // todo improve
+    this.score += word.length;
+    this.wordsFormed++;
+    if (word.length > this.longestWord.length) this.longestWord = word;
+
+    eventDispatcher.fire("score-changed", null);
+  }
+
+  private clearWordBar() {
+    const ids = new Set(this.wordBar.map((tile) => tile.id));
+
+    for (const col of this.grid) {
+      for (let i = col.length - 1; i >= 0; i--) {
+        const tile = col[i];
+        if (ids.has(tile.id)) {
+          col.splice(i, 1);
+        }
+      }
+    }
+
+    this.wordBar = [];
+    eventDispatcher.fire("word-bar-changed", null);
   }
 
   private isLetterKey(e: KeyboardEvent) {
