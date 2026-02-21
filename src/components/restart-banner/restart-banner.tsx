@@ -1,23 +1,20 @@
 import { motion } from "framer-motion";
 import { PrimaryButton } from "../primary-button/primary-button";
-import "./word-bar.scss";
+import "./restart-banner.scss";
 
-export function WordBar() {
-  function onSubmit() {
-    console.log("submit");
+export function RestartBanner() {
+  function onRestart() {
+    console.log("restart");
   }
 
   return (
     <motion.div
-      className="word-bar"
+      className="restart-banner"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
       transition={{ duration: 0.2, ease: "easeOut" }}
     >
-      <div className="word-display">PAPERWORK</div>
-
-      <PrimaryButton text="✓" onClick={onSubmit} size="sm" />
+      <PrimaryButton text="Restart" onClick={onRestart} size="md" />
     </motion.div>
   );
 }

@@ -1,8 +1,15 @@
+import { motion } from "framer-motion";
 import "./score-bar.scss";
 
 export function ScoreBar() {
   return (
-    <div className="score-bar">
+    <motion.div
+      className="score-bar"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.2, ease: "easeOut" }}
+    >
       <div className="icon-button">⏸</div>
 
       <div className="score-block">
@@ -11,6 +18,6 @@ export function ScoreBar() {
       </div>
 
       <div className="icon-button">⚙</div>
-    </div>
+    </motion.div>
   );
 }
