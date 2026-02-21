@@ -1,6 +1,11 @@
-- spawn rate logic
 - forming words
 - accepting words 
 - scoring logic
+- tile animations
+- pause/resume
 - sound effects
 - design polish
+
+
+Then:
+- playtest; tweak difficulty accordingly

@@ -29,31 +29,45 @@ export class Game {
 
   private letterSpawner = new LetterSpawner();
   private nextId = 0;
+  private startTime = 0;
+  private startSpawnInterval = 2000; // ms
+  private minSpawnInterval = 300; // ms
+  private spawnRampSpeed = 0.03; // smaller = slower ramp
+  private spawnTimeout = 0;
 
   constructor(private dictionary: Set<string>) {
-    this.getLetterTile();
+    this.startTime = performance.now();
 
-    setInterval(() => {
-      if (!this.gameOver) this.getLetterTile();
-    }, 10);
+    this.scheduleNextSpawn();
   }
 
   isValidWord(word: string) {
     return this.dictionary.has(word);
   }
 
-  addLetterTile(tile: LetterTile, col: number) {
-    this.grid[col].push(tile);
-    eventDispatcher.fire("grid-changed", this.grid);
-
-    // Check for end game
-    if (this.isGameOver()) {
-      this.gameOver = true;
-      eventDispatcher.fire("game-over", true);
-    }
+  pause() {
+    clearTimeout(this.spawnTimeout);
   }
 
-  private getLetterTile() {
+  private scheduleNextSpawn() {
+    const elapsedSeconds = (performance.now() - this.startTime) / 1000;
+    const spawnDelay = this.getNextSpawnInterval(elapsedSeconds);
+    this.spawnTimeout = setTimeout(() => {
+      // todo handle paused state
+      this.spawnLetterTile();
+      this.scheduleNextSpawn();
+    }, spawnDelay);
+  }
+
+  private getNextSpawnInterval(elapsedSeconds: number) {
+    return (
+      this.minSpawnInterval +
+      (this.startSpawnInterval - this.minSpawnInterval) *
+        Math.exp(-this.spawnRampSpeed * elapsedSeconds)
+    );
+  }
+
+  private spawnLetterTile() {
     // First, get the letter tile properties
     const id = `tile-${this.nextId++}`;
     const letter = this.letterSpawner.getLetter(this.grid);
@@ -89,6 +103,17 @@ export class Game {
     }
 
     return winningColumn;
+  }
+
+  private addLetterTile(tile: LetterTile, col: number) {
+    this.grid[col].push(tile);
+    eventDispatcher.fire("grid-changed", this.grid);
+
+    // Check for end game
+    if (this.isGameOver()) {
+      this.gameOver = true;
+      eventDispatcher.fire("game-over", true);
+    }
   }
 
   private isGameOver() {
