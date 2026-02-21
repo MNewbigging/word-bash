@@ -20,11 +20,12 @@
 }
 
 .overlay {
-  width: min(460px, 100%);
+  width: min(420px, 100%);
   border-radius: 14px;
   padding: 22px 20px 18px;
   outline: none;
-  min-height: 300px;
+  display: grid;
+  place-items: center;
 
   // paper base
   background:

@@ -35,7 +35,7 @@ export class Game {
 
     setInterval(() => {
       if (!this.gameOver) this.getLetterTile();
-    }, 100);
+    }, 10);
   }
 
   isValidWord(word: string) {
