@@ -1,6 +1,22 @@
-import { LetterTile } from "./game";
+import { COLS } from "./game";
+
+const TILE_COLORS = [
+  "#4FA9A8", // teal
+  "#E08C3C", // orange
+  "#5C8DB8", // blue
+  "#6DAA6B", // green
+  "#B08A5A", // brown
+  "#D9D3C7", // light gray
+  "#B7B1A8", // mid gray
+];
 
 export type Letter = string; // A..Z
+
+export type LetterTile = {
+  id: string;
+  letter: Letter;
+  color: string;
+};
 
 export class LetterSpawner {
   private readonly SCRABBLE_WEIGHTS: Record<Letter, number> = {
@@ -35,7 +51,86 @@ export class LetterSpawner {
   private VOWELS = new Set<Letter>(["A", "E", "I", "O", "U"]);
   private vowelChance = 0.45;
 
-  getLetter(grid: LetterTile[][]) {
+  private nextId = 0;
+  private startTime = 0;
+  private startSpawnInterval = 2000; // ms
+  private minSpawnInterval = 300; // ms
+  private spawnRampSpeed = 0.03; // smaller = slower ramp
+  private spawnTimeout = 0;
+
+  constructor(
+    private grid: LetterTile[][],
+    private addLetterTile: (tile: LetterTile, col: number) => void,
+  ) {
+    this.startTime = performance.now();
+  }
+
+  pause() {
+    clearTimeout(this.spawnTimeout);
+  }
+
+  resume() {
+    this.scheduleNextSpawn();
+    // todo handle time spent paused - should not affect elapsed seconds
+  }
+
+  scheduleNextSpawn() {
+    const elapsedSeconds = (performance.now() - this.startTime) / 1000;
+    const spawnDelay = this.getNextSpawnInterval(elapsedSeconds);
+    this.spawnTimeout = setTimeout(() => {
+      // todo handle paused state
+      this.spawnLetterTile();
+      this.scheduleNextSpawn();
+    }, spawnDelay);
+  }
+
+  private getNextSpawnInterval(elapsedSeconds: number) {
+    return (
+      this.minSpawnInterval +
+      (this.startSpawnInterval - this.minSpawnInterval) *
+        Math.exp(-this.spawnRampSpeed * elapsedSeconds)
+    );
+  }
+
+  private spawnLetterTile() {
+    // First, get the letter tile properties
+    const id = `tile-${this.nextId++}`;
+    const letter = this.getLetter(this.grid);
+    const color = TILE_COLORS[Math.floor(Math.random() * TILE_COLORS.length)];
+
+    // Then, pick a column
+    const col = this.getRandomColumnIndex();
+
+    // Then add it
+    this.addLetterTile({ id, letter, color }, col);
+  }
+
+  private getRandomColumnIndex() {
+    const choices: number[] = [];
+
+    // Pick 4 random columns
+    for (let i = 0; i < 4; i++) {
+      const rnd = Math.floor(Math.random() * COLS);
+      choices.push(rnd);
+    }
+
+    // Choose shortest column
+    let shortestLength = Infinity;
+    let winningColumn = 0;
+
+    for (let i = 0; i < 4; i++) {
+      const colIndex = choices[i];
+      const column = this.grid[colIndex];
+      if (column.length < shortestLength) {
+        shortestLength = column.length;
+        winningColumn = colIndex;
+      }
+    }
+
+    return winningColumn;
+  }
+
+  private getLetter(grid: LetterTile[][]) {
     // Make a new weights object from the base weights
     const weights = { ...this.SCRABBLE_WEIGHTS };
 

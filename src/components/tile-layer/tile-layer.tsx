@@ -1,4 +1,5 @@
-import { COLS, Game, LetterTile, ROWS } from "../../game";
+import { COLS, Game, ROWS } from "../../game";
+import { LetterTile } from "../../letter-spawner";
 import { useEventUpdater } from "../hooks/use-event-updater";
 import "./tile-layer.scss";
 
