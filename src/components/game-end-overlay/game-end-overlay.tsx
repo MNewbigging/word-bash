@@ -1,8 +1,18 @@
 import { motion } from "framer-motion";
 import "./game-end-overlay.scss";
 import { Logo } from "../logo/logo";
+import { PrimaryButton } from "../primary-button/primary-button";
+import { SecondaryButton } from "../secondary-button/secondary-button";
 
 export function GameEndOverlay() {
+  function onRestart() {
+    console.log("restart");
+  }
+
+  function onViewBoard() {
+    console.log("view board");
+  }
+
   return (
     <motion.div
       className="overlay-backdrop"
@@ -23,6 +33,11 @@ export function GameEndOverlay() {
       >
         <Logo altWord1="GAME" altWord2="OVER" />
         <OverlayStats />
+
+        <div className="buttons">
+          <PrimaryButton text="Restart" onClick={onRestart} />
+          <SecondaryButton text="View board" onClick={onViewBoard} />
+        </div>
       </motion.div>
     </motion.div>
   );

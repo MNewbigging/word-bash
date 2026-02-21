@@ -68,6 +68,11 @@
     border: 1px solid rgba(90, 70, 45, 0.08);
     pointer-events: none;
   }
+
+  .buttons {
+    display: flex;
+    gap: 6px;
+  }
 }
 
 .overlay-stats {
