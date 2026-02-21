@@ -22,7 +22,29 @@ export function GameEndOverlay() {
         }}
       >
         <Logo altWord1="GAME" altWord2="OVER" />
+        <OverlayStats />
       </motion.div>
     </motion.div>
+  );
+}
+
+function OverlayStats() {
+  return (
+    <div className="overlay-stats">
+      <div className="stat">
+        <span className="label">Score</span>
+        <span className="value">12,345</span>
+      </div>
+
+      <div className="stat">
+        <span className="label">Words Formed</span>
+        <span className="value">52</span>
+      </div>
+
+      <div className="stat">
+        <span className="label">Longest Word</span>
+        <span className="value">Paperwork</span>
+      </div>
+    </div>
   );
 }
