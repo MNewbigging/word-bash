@@ -5,6 +5,7 @@ import { useEventUpdater } from "../hooks/use-event-updater";
 import { Game } from "../../game";
 import { useEffect, useRef, useState } from "react";
 import { useEvent } from "../hooks/use-event";
+import { ScoreFx } from "../score-fx/score.fx";
 
 interface WordBarProps {
   game: Game;
@@ -99,6 +100,8 @@ export function WordBar({ game }: WordBarProps) {
           </button>
         )}
       </motion.div>
+
+      <ScoreFx />
 
       <PrimaryButton
         text="✓"

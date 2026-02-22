@@ -1,7 +1,7 @@
 export interface EventMap {
   "grid-changed": null;
   "game-over": boolean;
-  "score-changed": null;
+  "score-changed": { pointsGained: number }; // as in, how much score was gained
   "word-bar-changed": null;
   "invalid-word": null;
   "valid-word": null;

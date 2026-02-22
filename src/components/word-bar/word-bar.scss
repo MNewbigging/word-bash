@@ -1,6 +1,7 @@
 @import "../../common-styles.scss";
 
 .word-bar {
+  position: relative; // for score-fx
   width: 100%;
   height: 100%;
 

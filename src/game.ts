@@ -195,7 +195,7 @@ export class Game {
     // Track longest word
     if (word.length > this.longestWord.length) this.longestWord = word;
 
-    eventDispatcher.fire("score-changed", null);
+    eventDispatcher.fire("score-changed", { pointsGained: wordPoints });
   }
 
   private beginClearWordBar() {
