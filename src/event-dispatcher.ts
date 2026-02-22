@@ -3,6 +3,7 @@ export interface EventMap {
   "game-over": boolean;
   "score-changed": null;
   "word-bar-changed": null;
+  "invalid-word": null;
 }
 
 export type EventCallback<T = any> = (event: T) => void;

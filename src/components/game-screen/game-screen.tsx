@@ -1,9 +1,8 @@
-import { useReducer, useRef, useState } from "react";
+import { useEffect, useReducer, useRef, useState } from "react";
 import { Bucket } from "../bucket/bucket";
 import "./game-screen.scss";
 import { Game } from "../../game";
 import { GameEndOverlay } from "../game-end-overlay/game-end-overlay";
-import { useEventData } from "../hooks/use-event-data";
 import { ScoreBar } from "../score-bar/score-bar";
 import { WordBar } from "../word-bar/word-bar";
 import { AnimatePresence } from "framer-motion";
@@ -30,6 +29,13 @@ export function GameScreen({ dictionary }: GameScreenProps) {
   if (gameRef.current === null) {
     gameRef.current = new Game(dictionary);
   }
+
+  // Handle game cleanup
+  // useEffect(() => {
+  //   return () => {
+  //     gameRef.current?.dispose();
+  //   };
+  // }, []);
 
   // Game end overlay condition
   const gameOver = gameRef.current.gameOver;

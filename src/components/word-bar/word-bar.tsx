@@ -3,7 +3,9 @@ import { PrimaryButton } from "../primary-button/primary-button";
 import "./word-bar.scss";
 import { useEventUpdater } from "../hooks/use-event-updater";
 import { Game } from "../../game";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useEventData } from "../hooks/use-event-data";
+import { useEvent } from "../hooks/use-event";
 
 interface WordBarProps {
   game: Game;
@@ -11,6 +13,16 @@ interface WordBarProps {
 
 export function WordBar({ game }: WordBarProps) {
   useEventUpdater("word-bar-changed");
+  const [invalidWord, setInvalidWord] = useState(false);
+
+  function onInvalidWord() {
+    console.log("invalid word ");
+    setInvalidWord(true);
+    setTimeout(() => setInvalidWord(false), 350);
+  }
+
+  useEvent("invalid-word", onInvalidWord);
+
   const wordRef = useRef<HTMLDivElement>(null);
 
   const word = game.wordBar.map((tile) => tile.letter).join("");
@@ -39,7 +51,21 @@ export function WordBar({ game }: WordBarProps) {
       exit={{ opacity: 0 }}
       transition={{ duration: 0.2, ease: "easeOut" }}
     >
-      <div className="word-display">
+      <motion.div
+        className="word-display"
+        animate={
+          invalidWord
+            ? {
+                x: [0, -6, 6, -4, 4, 0],
+                backgroundColor: [
+                  "rgba(255,255,255,0.6)",
+                  "rgba(187,96,73,0.15)",
+                  "rgba(255,255,255,0.6)",
+                ],
+              }
+            : { x: 0, backgroundColor: "rgba(255,255,255,0.6)" }
+        }
+      >
         <div className="word-scroll" ref={wordRef}>
           <span className="word-text">{word}</span>
         </div>
@@ -49,7 +75,7 @@ export function WordBar({ game }: WordBarProps) {
             x
           </button>
         )}
-      </div>
+      </motion.div>
 
       <PrimaryButton text="✓" onClick={onSubmit} size="sm" activeOnEnter />
     </motion.div>

@@ -16,9 +16,7 @@ export class Game {
   longestWord = "";
 
   private minWordLength = 3;
-
   private letterSpawner: LetterSpawner;
-
   private LETTER_SCORES: Record<string, number> = {
     A: 1,
     B: 3,
@@ -50,9 +48,21 @@ export class Game {
 
   constructor(private dictionary: Set<string>) {
     this.letterSpawner = new LetterSpawner(this.grid, this.addLetterTile);
+
+    // Initial letter group
+    for (let i = 0; i < 12; i++) {
+      this.letterSpawner.spawnLetterTile();
+    }
+
+    // Then spawn in from there
     this.letterSpawner.scheduleNextSpawn();
 
     window.addEventListener("keydown", this.onKeyDown);
+  }
+
+  dispose() {
+    window.removeEventListener("keydown", this.onKeyDown);
+    this.letterSpawner.pause();
   }
 
   submitWord() {
@@ -62,11 +72,12 @@ export class Game {
     const word = this.wordBar.map((tile) => tile.letter).join("");
     if (this.isValidWord(word)) {
       // Great!
-      console.log("score!");
       this.scoreWord(word);
       this.clearWordBar();
     } else {
-      console.log("invalid word");
+      // Feedback
+      console.log("firing events");
+      eventDispatcher.fire("invalid-word", null);
     }
   }
 
@@ -79,6 +90,9 @@ export class Game {
     // Add it to the word bar
     this.wordBar.push(tile);
     eventDispatcher.fire("word-bar-changed", null);
+
+    console.log("added letter", tile.letter);
+    console.log("word bar", this.wordBar.map((w) => w.letter).join(""));
   }
 
   unuseLetter(tile: LetterTile) {
@@ -122,6 +136,7 @@ export class Game {
   }
 
   private onKeyDown = (e: KeyboardEvent) => {
+    console.log("key", e.key);
     // Handle delete
     if (e.key === "Backspace") {
       if (e.ctrlKey) this.deleteWordBar();

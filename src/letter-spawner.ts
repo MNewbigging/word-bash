@@ -85,15 +85,7 @@ export class LetterSpawner {
     }, spawnDelay);
   }
 
-  private getNextSpawnInterval(elapsedSeconds: number) {
-    return (
-      this.minSpawnInterval +
-      (this.startSpawnInterval - this.minSpawnInterval) *
-        Math.exp(-this.spawnRampSpeed * elapsedSeconds)
-    );
-  }
-
-  private spawnLetterTile() {
+  spawnLetterTile() {
     // First, get the letter tile properties
     const id = `tile-${this.nextId++}`;
     const letter = this.getLetter(this.grid);
@@ -104,6 +96,14 @@ export class LetterSpawner {
 
     // Then add it
     this.addLetterTile({ id, letter, color, inUse: false }, col);
+  }
+
+  private getNextSpawnInterval(elapsedSeconds: number) {
+    return (
+      this.minSpawnInterval +
+      (this.startSpawnInterval - this.minSpawnInterval) *
+        Math.exp(-this.spawnRampSpeed * elapsedSeconds)
+    );
   }
 
   private getRandomColumnIndex() {
