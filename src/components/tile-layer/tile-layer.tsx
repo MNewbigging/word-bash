@@ -1,3 +1,4 @@
+import { AnimatePresence, motion } from "framer-motion";
 import { COLS, Game, ROWS } from "../../game";
 import { LetterTile } from "../../letter-spawner";
 import { useEventUpdater } from "../hooks/use-event-updater";
@@ -12,6 +13,14 @@ type RenderTile = {
 interface TileLayerProps {
   game: Game;
 }
+
+const tileVariants = {
+  exit: {
+    scale: [0.98, 1.1, 1],
+    opacity: 0,
+    transition: { duration: 0.2, ease: "easeOut" },
+  },
+};
 
 export function TileLayer({ game }: TileLayerProps) {
   useEventUpdater("grid-changed", "word-bar-changed");
@@ -37,22 +46,26 @@ export function TileLayer({ game }: TileLayerProps) {
 
   return (
     <div className="tile-layer">
-      {tiles.map(({ letterTile, col, row }) => {
-        return (
-          <div
-            key={letterTile.id}
-            onClick={() => onClickTile(letterTile)}
-            className={`tile ${letterTile.inUse ? "in-use" : ""}`}
-            style={{
-              ["--tx" as any]: `${col * 100}%`,
-              ["--ty" as any]: `${row * 100}%`,
-              ["--tile-bg" as any]: letterTile.color,
-            }}
-          >
-            {letterTile.letter}
-          </div>
-        );
-      })}
+      <AnimatePresence>
+        {tiles.map(({ letterTile, col, row }) => {
+          return (
+            <motion.div
+              variants={tileVariants}
+              exit="exit"
+              key={letterTile.id}
+              onClick={() => onClickTile(letterTile)}
+              className={`tile ${letterTile.inUse ? "in-use" : ""}`}
+              style={{
+                ["--tx" as any]: `${col * 100}%`,
+                ["--ty" as any]: `${row * 100}%`,
+                ["--tile-bg" as any]: letterTile.color,
+              }}
+            >
+              {letterTile.letter}
+            </motion.div>
+          );
+        })}
+      </AnimatePresence>
     </div>
   );
 }

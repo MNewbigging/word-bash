@@ -134,6 +134,7 @@ export class Game {
     if (this.isGameOver()) {
       this.gameOver = true;
       console.log("pausing");
+      debugger;
       this.letterSpawner.pause();
       eventDispatcher.fire("game-over", true);
     }
