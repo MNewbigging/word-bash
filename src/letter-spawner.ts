@@ -54,10 +54,12 @@ export class LetterSpawner {
 
   private nextId = 0;
   private startTime = 0;
-  private startSpawnInterval = 2000; // ms
-  private minSpawnInterval = 300; // ms
+  private startSpawnInterval = 100; // 2000; // ms
+  private minSpawnInterval = 100; //300; // ms
   private spawnRampSpeed = 0.03; // smaller = slower ramp
   private spawnTimeout: ReturnType<typeof setTimeout> | null = null;
+
+  private paused = false;
 
   constructor(
     private grid: LetterTile[][],
@@ -69,22 +71,31 @@ export class LetterSpawner {
   }
 
   pause() {
+    this.paused = true;
+
     if (this.spawnTimeout) {
       clearTimeout(this.spawnTimeout);
+      this.spawnTimeout = null;
       console.log("cleared timeout");
     }
   }
 
   resume() {
+    if (!this.paused) return;
+
+    this.paused = false;
     this.scheduleNextSpawn();
     // todo handle time spent paused - should not affect elapsed seconds
   }
 
-  scheduleNextSpawn() {
+  private scheduleNextSpawn() {
+    if (this.paused) return;
+
     const elapsedSeconds = (performance.now() - this.startTime) / 1000;
     const spawnDelay = this.getNextSpawnInterval(elapsedSeconds);
-    console.log("scheduling next spawn in ", spawnDelay);
     this.spawnTimeout = setTimeout(() => {
+      if (this.paused) return;
+
       // todo handle paused state
       this.spawnLetterTile();
       this.scheduleNextSpawn();
@@ -94,7 +105,6 @@ export class LetterSpawner {
   spawnLetterTile() {
     // First, get the letter tile properties
     const id = `tile-${this.nextId++}`;
-    console.log("spawned letter", this.nextId);
     const letter = this.getLetter(this.grid);
     const color = TILE_COLORS[Math.floor(Math.random() * TILE_COLORS.length)];
 

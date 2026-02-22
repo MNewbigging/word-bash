@@ -1,6 +1,7 @@
-- starting tile pool
+Mechanics/features:
 - pause/resume
 - sound effects
+
 
 Animations:
 - accept word 
@@ -10,6 +11,6 @@ Animations:
 - tile entry?
 
 
-- clear word on invalid submit action?
+Misc:
 - playtest; tweak difficulty accordingly
 - fix react root error
