@@ -14,31 +14,38 @@ interface GameScreenProps {
 }
 
 export function GameScreen({ dictionary }: GameScreenProps) {
+  const [game, setGame] = useState(() => new Game(dictionary));
   const [viewBoard, setViewBoard] = useState(false);
-  const [, forceUpdate] = useReducer((x) => x + 1, 0);
+
   useEventUpdater("game-over");
 
+  useEffect(() => {
+    game.start();
+
+    return () => {
+      game.dispose();
+    };
+  }, [game]);
+
+  useEffect(() => {
+    function handleKey(e: KeyboardEvent) {
+      game.onKeyDown(e);
+    }
+
+    window.addEventListener("keydown", handleKey);
+
+    return () => {
+      window.removeEventListener("keydown", handleKey);
+    };
+  }, [game]);
+
   function handleRestart() {
-    gameRef.current = new Game(dictionary);
-    if (viewBoard) setViewBoard(false);
-    else forceUpdate();
+    game.dispose();
+    setGame(new Game(dictionary));
+    setViewBoard(false);
   }
 
-  // Setup game instance once
-  const gameRef = useRef<Game | null>(null);
-  if (gameRef.current === null) {
-    gameRef.current = new Game(dictionary);
-  }
-
-  // Handle game cleanup
-  // useEffect(() => {
-  //   return () => {
-  //     gameRef.current?.dispose();
-  //   };
-  // }, []);
-
-  // Game end overlay condition
-  const gameOver = gameRef.current.gameOver;
+  const gameOver = game.gameOver;
   const showOverlay = gameOver && !viewBoard;
 
   return (
@@ -46,7 +53,7 @@ export function GameScreen({ dictionary }: GameScreenProps) {
       <AnimatePresence>
         {showOverlay && (
           <GameEndOverlay
-            game={gameRef.current}
+            game={game}
             onViewBoard={() => setViewBoard(true)}
             onRestart={handleRestart}
           />
@@ -55,16 +62,16 @@ export function GameScreen({ dictionary }: GameScreenProps) {
 
       <div className="game-screen">
         <div className="top-bar">
-          <ScoreBar game={gameRef.current} />
+          <ScoreBar game={game} />
         </div>
 
         <div className="play-area">
-          <Bucket game={gameRef.current} />
+          <Bucket game={game} />
         </div>
 
         <div className="bot-bar">
           <AnimatePresence>
-            {!viewBoard && <WordBar game={gameRef.current} />}
+            {!viewBoard && <WordBar game={game} />}
             {viewBoard && <RestartBanner onRestart={handleRestart} />}
           </AnimatePresence>
         </div>

@@ -5,6 +5,8 @@ export const COLS = 8;
 export const ROWS = 14;
 
 export class Game {
+  private initialised = false;
+
   readonly grid: LetterTile[][] = Array.from({ length: COLS }, () => []);
 
   gameOver = false;
@@ -48,20 +50,22 @@ export class Game {
 
   constructor(private dictionary: Set<string>) {
     this.letterSpawner = new LetterSpawner(this.grid, this.addLetterTile);
+  }
 
-    // Initial letter group
-    for (let i = 0; i < 12; i++) {
-      this.letterSpawner.spawnLetterTile();
+  start() {
+    if (!this.initialised) {
+      this.initialised = true;
+      this.letterSpawner.start();
+      // Initial letter group
+      for (let i = 0; i < 12; i++) {
+        this.letterSpawner.spawnLetterTile();
+      }
     }
 
-    // Then spawn in from there
-    this.letterSpawner.scheduleNextSpawn();
-
-    window.addEventListener("keydown", this.onKeyDown);
+    this.letterSpawner.resume();
   }
 
   dispose() {
-    window.removeEventListener("keydown", this.onKeyDown);
     this.letterSpawner.pause();
   }
 
@@ -76,7 +80,6 @@ export class Game {
       this.clearWordBar();
     } else {
       // Feedback
-      console.log("firing events");
       eventDispatcher.fire("invalid-word", null);
     }
   }
@@ -90,9 +93,6 @@ export class Game {
     // Add it to the word bar
     this.wordBar.push(tile);
     eventDispatcher.fire("word-bar-changed", null);
-
-    console.log("added letter", tile.letter);
-    console.log("word bar", this.wordBar.map((w) => w.letter).join(""));
   }
 
   unuseLetter(tile: LetterTile) {
@@ -122,6 +122,7 @@ export class Game {
     // Check for end game
     if (this.isGameOver()) {
       this.gameOver = true;
+      console.log("pausing");
       this.letterSpawner.pause();
       eventDispatcher.fire("game-over", true);
     }
@@ -135,8 +136,7 @@ export class Game {
     return false;
   }
 
-  private onKeyDown = (e: KeyboardEvent) => {
-    console.log("key", e.key);
+  onKeyDown = (e: KeyboardEvent) => {
     // Handle delete
     if (e.key === "Backspace") {
       if (e.ctrlKey) this.deleteWordBar();
