@@ -1,3 +1,4 @@
+- starting tile pool
 - pause/resume
 - sound effects
 

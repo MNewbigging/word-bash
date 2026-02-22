@@ -158,8 +158,8 @@ export class Game {
       (sum, letter) => sum + this.LETTER_SCORES[letter],
       0,
     );
-    const lengthMultiplier = 1 + (word.length - 3) * 0.15;
-    const wordPoints = Math.floor(baseScore * lengthMultiplier);
+    const multiplier = 1 + Math.max(0, word.length - 4) * 0.2; // bonus from 5+
+    const wordPoints = Math.floor(baseScore * multiplier);
     this.score += wordPoints;
 
     // Track total number of words
@@ -212,5 +212,3 @@ export class Game {
     return lowestTile;
   }
 }
-
-function getScrabbleLetterScore(letter: string) {}
