@@ -17,6 +17,7 @@ export type LetterTile = {
   letter: Letter;
   color: string;
   inUse: boolean;
+  removing: boolean;
 };
 
 export class LetterSpawner {
@@ -119,7 +120,10 @@ export class LetterSpawner {
     const col = this.getRandomColumnIndex();
 
     // Then add it
-    this.addLetterTile({ id, letter, color, inUse: false }, col);
+    this.addLetterTile(
+      { id, letter, color, inUse: false, removing: false },
+      col,
+    );
   }
 
   private getNextSpawnInterval(elapsedSeconds: number) {

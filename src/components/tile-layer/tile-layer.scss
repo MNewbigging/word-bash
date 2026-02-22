@@ -10,8 +10,8 @@
   position: absolute;
   width: var(--cell-x);
   height: var(--cell-y);
-  transform: translate(var(--tx), var(--ty));
 
+  transform-origin: 50% 50%;
   user-select: none;
   box-sizing: border-box;
   display: grid;
@@ -44,9 +44,7 @@
 
   border: 1px solid rgba(0, 0, 0, 0.12);
 
-  transition:
-    transform 120ms ease-out,
-    box-shadow 120ms ease-out;
+  transition: box-shadow 120ms ease-out;
 
   will-change: transform;
 }
@@ -75,7 +73,6 @@
 
 .tile.in-use {
   /* Pull it forward visually */
-  transform: translate(var(--tx), var(--ty)) scale(1.05);
   box-sizing: border-box;
 
   /* Strong ring */

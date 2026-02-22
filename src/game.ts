@@ -87,7 +87,7 @@ export class Game {
     if (this.isValidWord(word)) {
       // Great!
       this.scoreWord(word);
-      this.clearWordBar();
+      this.beginClearWordBar();
       eventDispatcher.fire("valid-word", null);
     } else {
       // Feedback
@@ -198,9 +198,25 @@ export class Game {
     eventDispatcher.fire("score-changed", null);
   }
 
-  private clearWordBar() {
+  private beginClearWordBar() {
+    // Keep hold of word bar tile ids for later
     const ids = new Set(this.wordBar.map((tile) => tile.id));
 
+    // Start removal of each tile (this is for animations)
+    this.wordBar.forEach((tile) => (tile.removing = true));
+
+    // Clear word bar immediately
+    this.wordBar = [];
+    eventDispatcher.fire("word-bar-changed", null);
+
+    // Once anim finishes, actually remove the tiles
+    setTimeout(() => {
+      this.removeTiles(ids);
+      eventDispatcher.fire("grid-changed", null);
+    }, 200);
+  }
+
+  private removeTiles(ids: Set<string>) {
     for (const col of this.grid) {
       for (let i = col.length - 1; i >= 0; i--) {
         const tile = col[i];
@@ -209,9 +225,6 @@ export class Game {
         }
       }
     }
-
-    this.wordBar = [];
-    eventDispatcher.fire("word-bar-changed", null);
   }
 
   private isLetterKey(e: KeyboardEvent) {

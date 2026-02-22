@@ -14,18 +14,26 @@ interface TileLayerProps {
   game: Game;
 }
 
-const tileVariants = {
-  exit: {
-    scale: [0.98, 1.1, 1],
-    opacity: 0,
-    transition: { duration: 0.2, ease: "easeOut" },
-  },
+const removingAnim = {
+  opacity: 0,
+  scale: 0.96,
+  filter: "blur(0.5px)",
+  x: 0,
+  y: 0,
 };
+const idleAnim = (top: string) => ({
+  top,
+  opacity: 1,
+  scale: 1,
+  x: 0,
+  y: 0,
+});
 
 export function TileLayer({ game }: TileLayerProps) {
   useEventUpdater("grid-changed", "word-bar-changed");
 
   function onClickTile(tile: LetterTile) {
+    if (tile.removing) return;
     if (tile.inUse) game.unuseLetter(tile);
     else game.useLetter(tile);
   }
@@ -46,26 +54,35 @@ export function TileLayer({ game }: TileLayerProps) {
 
   return (
     <div className="tile-layer">
-      <AnimatePresence>
-        {tiles.map(({ letterTile, col, row }) => {
-          return (
-            <motion.div
-              variants={tileVariants}
-              exit="exit"
-              key={letterTile.id}
-              onClick={() => onClickTile(letterTile)}
-              className={`tile ${letterTile.inUse ? "in-use" : ""}`}
-              style={{
-                ["--tx" as any]: `${col * 100}%`,
-                ["--ty" as any]: `${row * 100}%`,
-                ["--tile-bg" as any]: letterTile.color,
-              }}
-            >
-              {letterTile.letter}
-            </motion.div>
-          );
-        })}
-      </AnimatePresence>
+      {tiles.map(({ letterTile, col, row }) => {
+        return (
+          <motion.div
+            key={letterTile.id}
+            className={`tile ${letterTile.inUse ? "in-use" : ""}`}
+            onClick={() => onClickTile(letterTile)}
+            style={{
+              left: `calc(${col} * var(--cell-x))`,
+              ["--tile-bg" as any]: letterTile.color,
+            }}
+            initial={false}
+            animate={
+              letterTile.removing
+                ? removingAnim
+                : idleAnim(`calc(${row} * var(--cell-y))`)
+            }
+            transition={
+              letterTile.removing
+                ? { duration: 0.2, ease: "easeOut" }
+                : {
+                    top: { type: "spring", stiffness: 900, damping: 60 },
+                    scale: { type: "spring", stiffness: 900, damping: 60 },
+                  }
+            }
+          >
+            {letterTile.letter}
+          </motion.div>
+        );
+      })}
     </div>
   );
 }
