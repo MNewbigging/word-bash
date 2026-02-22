@@ -1,11 +1,10 @@
 Mechanics/features:
-- pause/resume
-- sound effects
+- sound effects + mute button instead of settings button
 
 
 Animations:
-- accept word 
-- reject word
+- accept word: word bar animation 
+- accept word: score animation 
 - score increase
 - tile hover
 - tile entry?

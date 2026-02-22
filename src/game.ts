@@ -88,6 +88,7 @@ export class Game {
       // Great!
       this.scoreWord(word);
       this.clearWordBar();
+      eventDispatcher.fire("valid-word", null);
     } else {
       // Feedback
       eventDispatcher.fire("invalid-word", null);

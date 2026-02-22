@@ -4,6 +4,7 @@ export interface EventMap {
   "score-changed": null;
   "word-bar-changed": null;
   "invalid-word": null;
+  "valid-word": null;
   "pause-change": boolean;
 }
 
