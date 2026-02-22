@@ -3,11 +3,7 @@ Mechanics/features:
 
 
 Animations:
-- accept word: score animation 
-- score increase
 - danger line when close
-- tile hover
-- tile entry?
 
 
 Misc:
