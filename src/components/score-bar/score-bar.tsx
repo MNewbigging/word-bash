@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import "./score-bar.scss";
 import { Game } from "../../game";
 import { useEventUpdater } from "../hooks/use-event-updater";
+import { useEventData } from "../hooks/use-event-data";
 
 interface ScoreBarProps {
   game: Game;
@@ -9,6 +10,15 @@ interface ScoreBarProps {
 
 export function ScoreBar({ game }: ScoreBarProps) {
   useEventUpdater("score-changed");
+
+  const paused = useEventData("pause-change");
+
+  const pauseIcon = paused ? "▶" : "⏸";
+
+  function togglePause() {
+    if (paused) game.resumse();
+    else game.pause();
+  }
 
   return (
     <motion.div
@@ -18,7 +28,9 @@ export function ScoreBar({ game }: ScoreBarProps) {
       exit={{ opacity: 0 }}
       transition={{ duration: 0.2, ease: "easeOut" }}
     >
-      <div className="icon-button">⏸</div>
+      <div className="icon-button" onClick={togglePause}>
+        {pauseIcon}
+      </div>
 
       <div className="score-block">
         <div className="score-label">Score</div>

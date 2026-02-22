@@ -4,6 +4,7 @@ export interface EventMap {
   "score-changed": null;
   "word-bar-changed": null;
   "invalid-word": null;
+  "pause-change": boolean;
 }
 
 export type EventCallback<T = any> = (event: T) => void;

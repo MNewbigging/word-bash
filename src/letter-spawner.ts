@@ -54,12 +54,14 @@ export class LetterSpawner {
 
   private nextId = 0;
   private startTime = 0;
-  private startSpawnInterval = 100; // 2000; // ms
-  private minSpawnInterval = 100; //300; // ms
+  private startSpawnInterval = 2000; // ms
+  private minSpawnInterval = 300; // ms
   private spawnRampSpeed = 0.03; // smaller = slower ramp
   private spawnTimeout: ReturnType<typeof setTimeout> | null = null;
 
   private paused = false;
+  private pausedAt = 0;
+  private timeSpentPaused = 0;
 
   constructor(
     private grid: LetterTile[][],
@@ -71,27 +73,32 @@ export class LetterSpawner {
   }
 
   pause() {
+    if (this.paused) return;
     this.paused = true;
+
+    this.pausedAt = performance.now();
 
     if (this.spawnTimeout) {
       clearTimeout(this.spawnTimeout);
       this.spawnTimeout = null;
-      console.log("cleared timeout");
     }
   }
 
   resume() {
     if (!this.paused) return;
-
     this.paused = false;
+
+    const pausedTime = performance.now() - this.pausedAt;
+    this.timeSpentPaused += pausedTime;
+
     this.scheduleNextSpawn();
-    // todo handle time spent paused - should not affect elapsed seconds
   }
 
   private scheduleNextSpawn() {
     if (this.paused) return;
 
-    const elapsedSeconds = (performance.now() - this.startTime) / 1000;
+    const validRunTime = this.startTime - this.timeSpentPaused;
+    const elapsedSeconds = (performance.now() - validRunTime) / 1000;
     const spawnDelay = this.getNextSpawnInterval(elapsedSeconds);
     this.spawnTimeout = setTimeout(() => {
       if (this.paused) return;

@@ -65,6 +65,16 @@ export class Game {
     this.letterSpawner.resume();
   }
 
+  pause() {
+    this.letterSpawner.pause();
+    eventDispatcher.fire("pause-change", true);
+  }
+
+  resumse() {
+    this.letterSpawner.resume();
+    eventDispatcher.fire("pause-change", false);
+  }
+
   dispose() {
     this.letterSpawner.pause();
   }
